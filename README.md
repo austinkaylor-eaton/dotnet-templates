@@ -17,3 +17,4 @@ Use this folder to test your templates locally before publishing them to NuGet.
 - [How to configure custom templates for use in Visual Studio](https://github.com/sayedihashimi/template-sample)
 - [Dotnet SDK item templates](https://github.com/dotnet/sdk/tree/main/template_feed/Microsoft.DotNet.Common.ItemTemplates/content) - Contains actual templates published by the dotnet team (e.g, solution, .gitignore, nuget, build props, etc.)
 - [Dotnet SDK project templates](https://github.com/dotnet/sdk/tree/main/template_feed/Microsoft.DotNet.Common.ProjectTemplates.11.0/content) - Contains actual templates published by the dotnet team (e.g, console, classlib, webapi, mvc, etc.)
+- [Dotnet .slnx schema](https://github.com/microsoft/vs-solutionpersistence/blob/main/src/Microsoft.VisualStudio.SolutionPersistence/Serializer/Xml/Slnx.xsd)
