@@ -430,3 +430,4 @@ FodyWeavers.xsd
 
 # JetBrains
 .idea/
+LocalTesting/*
