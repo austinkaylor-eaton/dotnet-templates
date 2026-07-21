@@ -9,3 +9,5 @@ Contains a bunch of different dotnet templates for the dotnet new CLI command
 - [Microsoft Learn Tutorial: Create a template pack](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-template-pack)
 - [Dotnet template samples GitHub repository](https://github.com/dotnet/templating/tree/main/dotnet-template-samples)
 - [Dotnet template GitHub wiki](https://github.com/dotnet/templating/wiki)
+- [How to configure custom templates for use in Visual Studio](https://github.com/sayedihashimi/template-sample)
+- [Dotnet SDK item templates](https://github.com/dotnet/sdk/tree/main/template_feed/Microsoft.DotNet.Common.ItemTemplates/content) - Contains actual templates published by the dotnet team (e.g, solution, .gitignore, nuget, build props, etc.)
