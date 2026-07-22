@@ -1,0 +1,63 @@
+﻿{
+  "GetTodoItems": {
+    "200": {
+      "application/json": {
+        "summary": "List of all todo items",
+        "value": [
+          { "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "name": "Buy groceries", "isComplete": false },
+          { "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d", "name": "Walk the dog", "isComplete": true }
+        ]
+      }
+    }
+  },
+  "GetTodoItem": {
+    "200": {
+      "application/json": {
+        "summary": "A single todo item",
+        "value": { "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "name": "Buy groceries", "isComplete": false }
+      }
+    },
+    "404": {
+      "application/problem+json": {
+        "summary": "Todo item not found",
+        "value": { "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5", "title": "Not Found", "status": 404, "traceId": "00-abc123-def456-00" }
+      }
+    }
+  },
+  "PostTodoItem": {
+    "201": {
+      "application/json": {
+        "summary": "Newly created todo item",
+        "value": { "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "name": "Buy groceries", "isComplete": false }
+      }
+    },
+    "400": {
+      "application/problem+json": {
+        "summary": "Validation error",
+        "value": { "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1", "title": "Bad Request", "status": 400, "traceId": "00-abc123-def456-00" }
+      }
+    }
+  },
+  "PutTodoItem": {
+    "400": {
+      "application/problem+json": {
+        "summary": "ID mismatch between URL and body",
+        "value": { "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1", "title": "Bad Request", "status": 400, "traceId": "00-abc123-def456-00" }
+      }
+    },
+    "404": {
+      "application/problem+json": {
+        "summary": "Todo item not found",
+        "value": { "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5", "title": "Not Found", "status": 404, "traceId": "00-abc123-def456-00" }
+      }
+    }
+  },
+  "DeleteTodoItem": {
+    "404": {
+      "application/problem+json": {
+        "summary": "Todo item not found",
+        "value": { "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5", "title": "Not Found", "status": 404, "traceId": "00-abc123-def456-00" }
+      }
+    }
+  }
+}

@@ -1,3 +1,6 @@
 <Solution>
     <Folder Name="/LocalTesting/"/>
+    <Folder Name="/WebApi/FirstApi/">
+    <Project Path="WebApi/FirstApi/TodoApi/TodoApi.csproj" />
+    </Folder>
 </Solution>

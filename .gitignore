@@ -431,3 +431,7 @@ FodyWeavers.xsd
 # JetBrains
 .idea/
 LocalTesting/*
+
+# Miscellaneous
+## Prevent local tools from being checked in
+WebApi/FirstApi/TodoApi/Tools/

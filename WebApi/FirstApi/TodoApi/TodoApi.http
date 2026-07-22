@@ -1,0 +1,70 @@
+@HostAddress = https://localhost:7168
+@Id = {{$random.uuid}}
+
+### Get all TodoItems
+GET {{HostAddress}}/api/TodoItems
+
+### Get a specific TodoItem by ID
+GET {{HostAddress}}/api/TodoItems/{{NewId}}
+
+### Get a specific TodoItem using a bad Id
+GET {{HostAddress}}/api/TodoItems/badId
+
+### Create a new TodoItem
+POST {{HostAddress}}/api/TodoItems
+Content-Type: application/json
+
+{
+  "name": "New Todo Item",
+  "isComplete": false
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    // 1. Make sure the location header is not empty and exists
+    client.test("Location header is present", () => {
+        const locationHeader = response.headers.valueOf("location");
+        client.assert(locationHeader !== null, "Location header is missing");
+    })
+
+    // 2. Extract the new ID from the Location header
+    let locationHeader = response.headers.valueOf("location");
+    let newIdMatch = locationHeader.match(/\/api\/TodoItems\/(.+)$/);
+    if (newIdMatch && newIdMatch[1]) {
+        let newId = newIdMatch[1];
+        client.log("Extracted new ID from Location header: " + newId);
+        // 3. Store the new ID in the environment variable
+        client.global.set("NewId", newId);
+    } else {
+        client.log("Failed to extract new ID from Location header");
+    }
+%}
+
+### Update an existing TodoItem
+PUT {{HostAddress}}/api/TodoItems/{{Id}}
+Content-Type: application/json
+
+{
+  "id": "test",
+  "name": "Updated Todo Item",
+  "isComplete": true
+}
+
+### Update an existing TodoItem with a bad Id in the URL
+PUT {{HostAddress}}/api/TodoItems/badId
+Content-Type: application/json
+
+{
+  "id": "test",
+  "name": "Updated Todo Item",
+  "isComplete": true
+}
+
+### Delete a specific TodoItem by ID
+DELETE {{HostAddress}}/api/TodoItems/{{Id}}
+
+### Throw an exception to test error handling
+GET {{HostAddress}}/api/TodoItems/Throw
