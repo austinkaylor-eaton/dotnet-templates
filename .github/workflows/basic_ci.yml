@@ -1,0 +1,61 @@
+﻿name: CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  pull_request_target:
+    types: [ closed ]
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request_target' || github.event.pull_request.merged == true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+
+  update-changelog:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.base_ref == 'main'
+
+    permissions:
+      contents: write
+      pull-requests: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set git config
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Extract and update changelog
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          pwsh ${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1 -PrBody "$env:PR_BODY" -PrNumber $env:PR_NUMBER
+
+      - name: Commit changelog updates
+        run: |
+          if [[ -n "$(git status --porcelain CHANGELOG.md)" ]]; then
+            git add CHANGELOG.md
+            git commit -m "docs: update CHANGELOG.md from PR #${{ github.event.pull_request.number }}"
+            git push
+          else
+            echo "No changelog changes to commit"
+          fi
+

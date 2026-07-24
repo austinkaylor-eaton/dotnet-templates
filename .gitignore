@@ -430,4 +430,15 @@ FodyWeavers.xsd
 
 # JetBrains
 .idea/
+
+# Repository Specific
+!artifacts/
+artifacts/**
+!artifacts/**/
+!artifacts/**/.gitkeep
+
 local_testing/*
+!local_testing/
+!local_testing/**/
+local_testing/**/*
+!local_testing/**/.gitkeep
