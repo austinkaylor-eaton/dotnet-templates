@@ -8,6 +8,7 @@
     <Folder Name="/artifacts/nuget_packages/" />
     <Folder Name="/automation/" />
     <Folder Name="/automation/scripts/">
+        <File Path="automation/scripts/add-gitkeep-to-every-repo-folder.ps1" />
         <File Path="automation/scripts/check-openapi-doc-current.ps1" />
         <File Path="automation/scripts/install-local.ps1" />
         <File Path="automation/scripts/pack-templates.ps1" />
