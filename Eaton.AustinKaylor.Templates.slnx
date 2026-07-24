@@ -1,3 +1,9 @@
 <Solution>
-    <Folder Name="/local_testing/"/>
+    <Folder Name="/artifacts/" />
+    <Folder Name="/automation/" />
+    <Folder Name="/docs/" />
+    <Folder Name="/local_testing/" />
+    <Folder Name="/templates/" />
+    <Folder Name="/templates/item/" />
+    <Folder Name="/templates/project/" />
 </Solution>
