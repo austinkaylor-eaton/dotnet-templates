@@ -7,7 +7,9 @@
         <File Path="artifacts/nuget_packages/placeholder.txt" />
     </Folder>
     <Folder Name="/automation/" />
-    <Folder Name="/automation/ci/" />
+    <Folder Name="/automation/ci/">
+        <File Path="automation/ci/placeholder.txt" />
+    </Folder>
     <Folder Name="/automation/scripts/">
         <File Path="automation/scripts/check-openapi-doc-current.ps1" />
         <File Path="automation/scripts/install-local.ps1" />

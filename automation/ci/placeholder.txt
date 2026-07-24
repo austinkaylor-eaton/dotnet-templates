@@ -1,0 +1,1 @@
+﻿This file is a placeholder to ensure that the automation/ci directory is tracked by Git.
