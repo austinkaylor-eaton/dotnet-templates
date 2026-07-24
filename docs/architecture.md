@@ -136,7 +136,7 @@ templates/item/eaton-class/
 ### Key Files
 
 **`template.json`**
-- `identity`: Unique full name (`Eaton.Templates.Item.Class.CSharp`)
+- `identity`: Unique full name (`Eaton.AustinKaylor.Templates.Item.Class.CSharp`)
 - `shortName`: CLI-friendly name (`eaton-class`)
 - `name`: Display name
 - `description`: What the template does

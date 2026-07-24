@@ -60,7 +60,7 @@ public class ^ClassName^
   "author": "Austin Kaylor",
   "classifications": ["Common"],
   "name": "Eaton Class",
-  "identity": "Eaton.Templates.Item.Class.CSharp",
+  "identity": "Eaton.AustinKaylor.Templates.Item.Class.CSharp",
   "shortName": "eaton-class",
   "description": "Creates a new C# class with XML documentation.",
   "tags": {
@@ -265,8 +265,8 @@ templates/project/eaton-webapi/
   "author": "Austin Kaylor",
   "classifications": ["Web"],
   "name": "Eaton Web API",
-  "identity": "Eaton.Templates.Project.WebApi.CSharp",
-  "groupIdentity": "Eaton.Templates.Project.WebApi.CSharp",
+  "identity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
+  "groupIdentity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
   "shortName": "eaton-webapi",
   "description": "Creates a minimal ASP.NET Core Web API with health checks.",
   "tags": {

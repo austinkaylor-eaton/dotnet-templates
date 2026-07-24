@@ -14,9 +14,9 @@ discoverable for users, and consistent in `dotnet new list` output.
 
 | Concept                 | Convention                                            | Example                                              |
 |-------------------------|-------------------------------------------------------|------------------------------------------------------|
-| Template identity       | `Eaton.Templates.<Type>.<Name>.CSharp`                | `Eaton.Templates.Project.WebApi.CSharp` |
+| Template identity       | `Eaton.AustinKaylor.Templates.<Type>.<Name>.CSharp`   | `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp` |
 | Template short name     | `eaton-<name>`                                        | `eaton-webapi`                                       |
-| Template group identity | `Eaton.Templates.<Type>.<Family>.CSharp`              | `Eaton.Templates.Project.WebApi.CSharp` |
+| Template group identity | `Eaton.AustinKaylor.Templates.<Type>.<Family>.CSharp` | `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp` |
 | NuGet package ID        | `Eaton.AustinKaylor.Templates`                        | `Eaton.AustinKaylor.Templates`                       |
 | Template folder name    | kebab-case                                            | `eaton-webapi`                                       |
 | Source project name     | PascalCase                                            | `Eaton.WebApi`                                       |
@@ -29,7 +29,7 @@ The `identity` field in `template.json` must be globally unique.
 Pattern:
 
 ```text
-Eaton.Templates.<Type>.<Name>.CSharp
+Eaton.AustinKaylor.Templates.<Type>.<Name>.CSharp
 ```
 
 ### Identity Segments
@@ -44,18 +44,18 @@ Eaton.Templates.<Type>.<Name>.CSharp
 
 ### Good Examples
 
-- `Eaton.Templates.Item.Class.CSharp`
-- `Eaton.Templates.Item.Interface.CSharp`
-- `Eaton.Templates.Project.WebApi.CSharp`
-- `Eaton.Templates.Project.Console.CSharp`
-- `Eaton.Templates.Solution.Monolith.CSharp`
+- `Eaton.AustinKaylor.Templates.Item.Class.CSharp`
+- `Eaton.AustinKaylor.Templates.Item.Interface.CSharp`
+- `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp`
+- `Eaton.AustinKaylor.Templates.Project.Console.CSharp`
+- `Eaton.AustinKaylor.Templates.Solution.Monolith.CSharp`
 
 ### Avoid
 
 - `class-template`
 - `Eaton.WebApi`
 - `Eaton.Template.Project.WebApi`
-- `Eaton.Templates.project.webapi.csharp`
+- `Eaton.AustinKaylor.Templates.project.webapi.csharp`
 
 Use PascalCase inside the identity so the meaning is obvious and consistent.
 
@@ -118,13 +118,13 @@ such as:
 Pattern:
 
 ```text
-Eaton.Templates.<Type>.<Family>.CSharp
+Eaton.AustinKaylor.Templates.<Type>.<Family>.CSharp
 ```
 
 Examples:
 
-- `Eaton.Templates.Project.WebApi.CSharp`
-- `Eaton.Templates.Project.Console.CSharp`
+- `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp`
+- `Eaton.AustinKaylor.Templates.Project.Console.CSharp`
 
 Use the same `groupIdentity` for related variants, and different `identity`
 values for each specific template.
@@ -360,11 +360,11 @@ it necessary.
 
 | Template Type | Folder                               | identity                                                | shortName         | name                      |
 |---------------|--------------------------------------|---------------------------------------------------------|-------------------|---------------------------|
-| Item          | `templates/item/eaton-class/`        | `Eaton.Templates.Item.Class.CSharp`        | `eaton-class`     | `Eaton Class`             |
-| Item          | `templates/item/eaton-interface/`    | `Eaton.Templates.Item.Interface.CSharp`    | `eaton-interface` | `Eaton Interface`         |
-| Project       | `templates/project/eaton-webapi/`    | `Eaton.Templates.Project.WebApi.CSharp`    | `eaton-webapi`    | `Eaton Web API`           |
-| Project       | `templates/project/eaton-console/`   | `Eaton.Templates.Project.Console.CSharp`   | `eaton-console`   | `Eaton Console App`       |
-| Solution      | `templates/solution/eaton-monolith/` | `Eaton.Templates.Solution.Monolith.CSharp` | `eaton-monolith`  | `Eaton Monolith Solution` |
+| Item          | `templates/item/eaton-class/`        | `Eaton.AustinKaylor.Templates.Item.Class.CSharp`        | `eaton-class`     | `Eaton Class`             |
+| Item          | `templates/item/eaton-interface/`    | `Eaton.AustinKaylor.Templates.Item.Interface.CSharp`    | `eaton-interface` | `Eaton Interface`         |
+| Project       | `templates/project/eaton-webapi/`    | `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp`    | `eaton-webapi`    | `Eaton Web API`           |
+| Project       | `templates/project/eaton-console/`   | `Eaton.AustinKaylor.Templates.Project.Console.CSharp`   | `eaton-console`   | `Eaton Console App`       |
+| Solution      | `templates/solution/eaton-monolith/` | `Eaton.AustinKaylor.Templates.Solution.Monolith.CSharp` | `eaton-monolith`  | `Eaton Monolith Solution` |
 
 ## Example `template.json`
 
@@ -373,8 +373,8 @@ it necessary.
   "$schema": "http://json.schemastore.org/template",
   "author": "Austin Kaylor",
   "name": "Eaton Web API",
-  "identity": "Eaton.Templates.Project.WebApi.CSharp",
-  "groupIdentity": "Eaton.Templates.Project.WebApi.CSharp",
+  "identity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
+  "groupIdentity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
   "shortName": "eaton-webapi",
   "description": "Creates a minimal ASP.NET Core Web API with health checks.",
   "classifications": ["Web", "API", "Minimal API"],
@@ -389,7 +389,7 @@ it necessary.
 
 Before publishing a new template, verify the following:
 
-- [ ] `identity` uses `Eaton.Templates.<Type>.<Name>.CSharp`
+- [ ] `identity` uses `Eaton.AustinKaylor.Templates.<Type>.<Name>.CSharp`
 - [ ] `shortName` is lowercase kebab-case and starts with `eaton-`
 - [ ] `groupIdentity` matches the template family
 - [ ] `name` is human-readable and uses title case
@@ -404,9 +404,9 @@ Before publishing a new template, verify the following:
 
 Use these defaults unless there is a strong reason not to:
 
-- **identity:** `Eaton.Templates.<Type>.<Name>.CSharp`
+- **identity:** `Eaton.AustinKaylor.Templates.<Type>.<Name>.CSharp`
 - **shortName:** `eaton-<name>`
-- **groupIdentity:** `Eaton.Templates.<Type>.<Family>.CSharp`
+- **groupIdentity:** `Eaton.AustinKaylor.Templates.<Type>.<Family>.CSharp`
 - **package ID:** `Eaton.AustinKaylor.Templates`
 - **folder name:** match `shortName`
 - **symbol IDs:** PascalCase
