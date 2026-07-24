@@ -1,6 +1,10 @@
 <Solution>
     <Folder Name="/artifacts/" />
+    <Folder Name="/artifacts/logs/" />
+    <Folder Name="/artifacts/nuget_packages/" />
     <Folder Name="/automation/" />
+    <Folder Name="/automation/ci/" />
+    <Folder Name="/automation/scripts/" />
     <Folder Name="/docs/" />
     <Folder Name="/local_testing/" />
     <Folder Name="/templates/" />
