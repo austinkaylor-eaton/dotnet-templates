@@ -1,4 +1,8 @@
 <Solution>
+    <Folder Name="/.github/" />
+    <Folder Name="/.github/workflows/">
+        <File Path=".github/workflows/basic_ci.yml" />
+    </Folder>
     <Folder Name="/artifacts/" />
     <Folder Name="/artifacts/logs/">
         <File Path="artifacts/logs/placeholder.txt" />
