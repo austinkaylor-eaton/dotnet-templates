@@ -31,6 +31,8 @@
         <File Path="local_testing/placeholder.txt" />
     </Folder>
     <Folder Name="/templates/" />
-    <Folder Name="/templates/item/" />
+    <Folder Name="/templates/item/">
+        <File Path="templates/item/placeholder.txt" />
+    </Folder>
     <Folder Name="/templates/project/" />
 </Solution>
