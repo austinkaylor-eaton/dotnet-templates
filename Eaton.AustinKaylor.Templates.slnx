@@ -5,6 +5,7 @@
     <Folder Name="/automation/" />
     <Folder Name="/automation/ci/" />
     <Folder Name="/automation/scripts/">
+        <File Path="automation/scripts/check-openapi-doc-current.ps1" />
         <File Path="automation/scripts/install-local.ps1" />
         <File Path="automation/scripts/pack-templates.ps1" />
         <File Path="automation/scripts/publish-templates.ps1" />
