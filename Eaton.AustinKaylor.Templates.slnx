@@ -4,12 +4,8 @@
         <File Path=".github/workflows/basic_ci.yml" />
     </Folder>
     <Folder Name="/artifacts/" />
-    <Folder Name="/artifacts/logs/">
-        <File Path="artifacts/logs/placeholder.txt" />
-    </Folder>
-    <Folder Name="/artifacts/nuget_packages/">
-        <File Path="artifacts/nuget_packages/placeholder.txt" />
-    </Folder>
+    <Folder Name="/artifacts/logs/" />
+    <Folder Name="/artifacts/nuget_packages/" />
     <Folder Name="/automation/" />
     <Folder Name="/automation/scripts/">
         <File Path="automation/scripts/check-openapi-doc-current.ps1" />
@@ -28,14 +24,8 @@
         <File Path="docs/release-process.md" />
         <File Path="docs/template-catalog.md" />
     </Folder>
-    <Folder Name="/local_testing/">
-        <File Path="local_testing/placeholder.txt" />
-    </Folder>
+    <Folder Name="/local_testing/" />
     <Folder Name="/templates/" />
-    <Folder Name="/templates/item/">
-        <File Path="templates/item/placeholder.txt" />
-    </Folder>
-    <Folder Name="/templates/project/">
-        <File Path="templates/project/placeholder.txt" />
-    </Folder>
+    <Folder Name="/templates/item/" />
+    <Folder Name="/templates/project/" />
 </Solution>
