@@ -4,11 +4,14 @@ This guide walks you through creating a new `dotnet new` template from scratch. 
 
 ## Before You Start
 
-- Review `architecture.md` to understand the repository structure
-- Review `naming-conventions.md` to understand template identity and naming
-- Review `release-process.md` for versioning, packaging, and publishing responsibilities
+- Review [architecture.md](architecture.md) to understand the repository structure
+- Review [naming-conventions.md](naming-conventions.md) to understand template identity and naming
+- Review [release-process.md](release-process.md) for versioning, packaging, and publishing responsibilities
 - Have the [Microsoft Learn: Create a custom template](https://learn.microsoft.com/en-us/dotnet/core/tools/custom-templates) docs handy
-- Decide your template type: **item**, **project**, or **solution**
+- Decide your template type: 
+  - **item**
+  - **project**
+  - **solution**
 
 ## Template Types at a Glance
 
@@ -433,11 +436,11 @@ Computed from other values:
 
 Templates have automatic symbols:
 
-| Symbol | Value |
-|--------|-------|
-| `name` | Project or item name (from `--name` or positional arg) |
-| `HostIdentifier` | `dotnet` for CLI, `vs` for Visual Studio |
-| `TargetFramework` | e.g., `net8.0` |
+| Symbol            | Value                                                  |
+|-------------------|--------------------------------------------------------|
+| `name`            | Project or item name (from `--name` or positional arg) |
+| `HostIdentifier`  | `dotnet` for CLI, `vs` for Visual Studio               |
+| `TargetFramework` | e.g., `net8.0`                                         |
 
 ---
 
@@ -445,7 +448,7 @@ Templates have automatic symbols:
 
 ### 1. Use Clear, Descriptive Symbol Names
 
-Use `docs/naming-conventions.md` as the canonical source for naming rules. This
+Use [naming-conventions.md](naming-conventions.md) as the canonical source for naming rules. This
 section summarizes the authoring implications of those rules.
 
 **Good:**
@@ -493,7 +496,7 @@ Remove-Item -Force *.user
 
 ### 4. Use Short Names Consistently
 
-Follow the naming convention from `docs/naming-conventions.md`: `eaton-<name>`
+Follow the naming convention from [naming-conventions.md](naming-conventions.md): `eaton-<name>`
 
 - `eaton-class` ✓
 - `eaton-interface` ✓
@@ -710,12 +713,12 @@ The `fileRename` value must match the base file name used in the template.
 - [ ] Template source is clean (no `bin/`, `obj/`, `.user` files)
 - [ ] Local tests pass: `.\automation\scripts\validate-templates.ps1`
 - [ ] README documents all parameters and shows example usage
-- [ ] Naming follows `docs/naming-conventions.md`
+- [ ] Naming follows [naming-conventions.md](naming-conventions.md)
 - [ ] Description is clear and concise
 - [ ] Post-actions (if any) are tested
 
 For packaging, versioning, publishing, and tagging, follow
-`docs/release-process.md`.
+[release-process.md](release-process.md).
 
 ---
 
@@ -724,8 +727,8 @@ For packaging, versioning, publishing, and tagging, follow
 1. **Author your template** using the steps above
 2. **Test locally** with `.\automation\scripts\install-local.ps1`
 3. **Validate** with `.\automation\scripts\validate-templates.ps1`
-4. **Document** in `docs/template-catalog.md`
-5. **Update CHANGELOG.md** with your new template
+4. **Document** in [template-catalog.md](template-catalog.md)
+5. **Update [CHANGELOG.md](../CHANGELOG.md)** with your new template
 6. **Commit and create PR** for review
 
 ---
