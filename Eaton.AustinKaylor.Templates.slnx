@@ -4,7 +4,13 @@
     <Folder Name="/artifacts/nuget_packages/" />
     <Folder Name="/automation/" />
     <Folder Name="/automation/ci/" />
-    <Folder Name="/automation/scripts/" />
+    <Folder Name="/automation/scripts/">
+        <File Path="automation/scripts/install-local.ps1" />
+        <File Path="automation/scripts/pack-templates.ps1" />
+        <File Path="automation/scripts/publish-templates.ps1" />
+        <File Path="automation/scripts/uninstall-local.ps1" />
+        <File Path="automation/scripts/validate-templates.ps1" />
+    </Folder>
     <Folder Name="/docs/">
         <File Path="docs/architecture.md" />
         <File Path="docs/authoring-guide.md" />
