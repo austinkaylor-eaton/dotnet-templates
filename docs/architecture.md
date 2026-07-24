@@ -225,7 +225,7 @@ Triggered on every commit to `main`:
 
 ### Why One Package for Multiple Templates?
 
-- **Simpler Distribution**: One install command installs all
+- **Simpler Distribution**: One `install` command installs all templates
 - **Unified Versioning**: All templates ship together, reducing coordination overhead
 - **Single Feed Dependency**: Users depend on one package
 
