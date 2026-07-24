@@ -3,7 +3,9 @@
     <Folder Name="/artifacts/logs/">
         <File Path="artifacts/logs/placeholder.txt" />
     </Folder>
-    <Folder Name="/artifacts/nuget_packages/" />
+    <Folder Name="/artifacts/nuget_packages/">
+        <File Path="artifacts/nuget_packages/placeholder.txt" />
+    </Folder>
     <Folder Name="/automation/" />
     <Folder Name="/automation/ci/" />
     <Folder Name="/automation/scripts/">
