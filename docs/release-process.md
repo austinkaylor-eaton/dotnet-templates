@@ -31,13 +31,13 @@ examples.
 
 Each release should produce the following outputs:
 
-| Artifact        | Location                                                    | Purpose                       |
-|-----------------|-------------------------------------------------------------|-------------------------------|
+| Artifact        | Location                    | Purpose                       |
+|-----------------|-----------------------------|-------------------------------|
 | NuGet package   | `artifacts/nuget_packages/` | Installable template pack     |
 | Validation logs | `artifacts/logs/`           | Test and packaging output     |
 | Changelog entry | `CHANGELOG.md`              | Human-readable release notes  |
 | Catalog updates | `docs/template-catalog.md`  | Template inventory by version |
-| Git tag         | repository tag                                              | Immutable version reference   |
+| Git tag         | repository tag              | Immutable version reference   |
 
 ## Versioning Policy
 

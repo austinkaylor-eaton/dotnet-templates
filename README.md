@@ -14,22 +14,22 @@ a predictable way.
 
 ## Repository Layout
 
-| Path                                                   | Purpose                                                     |
-|--------------------------------------------------------|-------------------------------------------------------------|
-| `templates/`                 | Template source organized by template type                  |
-| `automation/scripts/`        | Validation, packaging, install, and publish scripts         |
-| `automation/ci/`             | CI/CD pipeline definitions                                  |
-| `artifacts/logs/`            | Validation and packaging logs                               |
-| `artifacts/nuget_packages/`  | Generated `.nupkg` outputs                                  |
-| `local_testing/`             | Safe sandbox for generated template output                  |
-| `docs/`                      | Canonical repository guidance                               |
+| Path                        | Purpose                                             |
+|-----------------------------|-----------------------------------------------------|
+| `templates/`                | Template source organized by template type          |
+| `automation/scripts/`       | Validation, packaging, install, and publish scripts |
+| `automation/ci/`            | CI/CD pipeline definitions                          |
+| `artifacts/logs/`           | Validation and packaging logs                       |
+| `artifacts/nuget_packages/` | Generated `.nupkg` outputs                          |
+| `local_testing/`            | Safe sandbox for generated template output          |
+| `docs/`                     | Canonical repository guidance                       |
 
 ## Documentation Map
 
 Use these documents as the primary entry points for working in the repository:
 
-| Document                                                 | Purpose                                                         |
-|----------------------------------------------------------|-----------------------------------------------------------------|
+| Document                     | Purpose                                                         |
+|------------------------------|-----------------------------------------------------------------|
 | `docs/architecture.md`       | Repository structure, system design, and document ownership     |
 | `docs/authoring-guide.md`    | How to create, configure, and test templates                    |
 | `docs/naming-conventions.md` | Identity, `shortName`, folder, symbol, and package naming rules |

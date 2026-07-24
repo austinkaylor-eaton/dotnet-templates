@@ -370,14 +370,18 @@ it necessary.
 
 ```json
 {
-  "$schema": "http://json.schemastore.org/template",
+  "$schema": "https://json.schemastore.org/template",
   "author": "Austin Kaylor",
   "name": "Eaton Web API",
   "identity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
   "groupIdentity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
   "shortName": "eaton-webapi",
   "description": "Creates a minimal ASP.NET Core Web API with health checks.",
-  "classifications": ["Web", "API", "Minimal API"],
+  "classifications": [
+    "Web",
+    "API",
+    "Minimal API"
+  ],
   "tags": {
     "language": "C#",
     "type": "project"

@@ -56,7 +56,7 @@ public class ^ClassName^
 
 ```json
 {
-  "$schema": "http://json.schemastore.org/template",
+  "$schema": "https://json.schemastore.org/template",
   "author": "Austin Kaylor",
   "classifications": ["Common"],
   "name": "Eaton Class",
@@ -107,7 +107,7 @@ public class ^ClassName^
 
 ```json
 {
-  "$schema": "http://json.schemastore.org/dotnetcli.host",
+  "$schema": "https://json.schemastore.org/dotnetcli.host",
   "usageExamples": [
     "dotnet new eaton-class",
     "dotnet new eaton-class --namespace MyApp --class-name User --description \"Represents a user\""
@@ -261,7 +261,7 @@ templates/project/eaton-webapi/
 
 ```json
 {
-  "$schema": "http://json.schemastore.org/template",
+  "$schema": "https://json.schemastore.org/template",
   "author": "Austin Kaylor",
   "classifications": ["Web"],
   "name": "Eaton Web API",
@@ -323,23 +323,23 @@ templates/project/eaton-webapi/
 
 ### Important Keys for Project Templates
 
-| Key | Purpose | Example |
-|-----|---------|---------|
-| `shortNameAliases` | Alternative short names users can type | `["webapi", "api"]` |
-| `defaultName` | Default project name if not specified | `"WebApi"` |
-| `preferNameDirectory` | Create a directory with the project name | `true` |
-| `postActions` | Commands to run after generation (restore, build, open) | See next section |
-| `symbols` | Parameters with types: `parameter`, `derived`, `computed` | |
+| Key                   | Purpose                                                   | Example             |
+|-----------------------|-----------------------------------------------------------|---------------------|
+| `shortNameAliases`    | Alternative short names users can type                    | `["webapi", "api"]` |
+| `defaultName`         | Default project name if not specified                     | `"WebApi"`          |
+| `preferNameDirectory` | Create a directory with the project name                  | `true`              |
+| `postActions`         | Commands to run after generation (restore, build, open)   | See next section    |
+| `symbols`             | Parameters with types: `parameter`, `derived`, `computed` |                     |
 
 ### Post-Actions: Auto-Restore and Beyond
 
 Post-actions run automatically after template generation. Common IDs:
 
-| Action ID | Purpose |
-|-----------|---------|
+| Action ID                              | Purpose                |
+|----------------------------------------|------------------------|
 | `210D431B-A78B-4D2F-B762-4ED3E3EA9025` | Restore NuGet packages |
-| `84C0DA21-51C8-4541-9940-6E8CD9A4BA15` | Open file in IDE |
-| `D396213F-92CE-59FB-992D-D39272900B70` | Open folder in IDE |
+| `84C0DA21-51C8-4541-9940-6E8CD9A4BA15` | Open file in IDE       |
+| `D396213F-92CE-59FB-992D-D39272900B70` | Open folder in IDE     |
 
 **File:** `templates/project/eaton-webapi/src/.template.config/post-actions.json` (optional; can inline in `template.json`)
 
