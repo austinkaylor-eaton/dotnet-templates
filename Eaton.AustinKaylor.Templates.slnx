@@ -1,11 +1,11 @@
 <Solution>
     <Folder Name="/artifacts/" />
-    <Folder Name="/artifacts/logs/" />
+    <Folder Name="/artifacts/logs/">
+        <File Path="artifacts/logs/placeholder.txt" />
+    </Folder>
     <Folder Name="/artifacts/nuget_packages/" />
     <Folder Name="/automation/" />
-    <Folder Name="/automation/ci/">
-        <File Path="local_testing/placeholder.txt" />
-    </Folder>
+    <Folder Name="/automation/ci/" />
     <Folder Name="/automation/scripts/">
         <File Path="automation/scripts/check-openapi-doc-current.ps1" />
         <File Path="automation/scripts/install-local.ps1" />
@@ -23,14 +23,8 @@
         <File Path="docs/release-process.md" />
         <File Path="docs/template-catalog.md" />
     </Folder>
-    <Folder Name="/local_testing/">
-        <File Path="local_testing/placeholder.txt" />
-    </Folder>
+    <Folder Name="/local_testing/" />
     <Folder Name="/templates/" />
-    <Folder Name="/templates/item/">
-        <File Path="local_testing/placeholder.txt" />
-    </Folder>
-    <Folder Name="/templates/project/">
-        <File Path="local_testing/placeholder.txt" />
-    </Folder>
+    <Folder Name="/templates/item/" />
+    <Folder Name="/templates/project/" />
 </Solution>
