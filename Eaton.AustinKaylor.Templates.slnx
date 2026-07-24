@@ -34,5 +34,7 @@
     <Folder Name="/templates/item/">
         <File Path="templates/item/placeholder.txt" />
     </Folder>
-    <Folder Name="/templates/project/" />
+    <Folder Name="/templates/project/">
+        <File Path="templates/project/placeholder.txt" />
+    </Folder>
 </Solution>
