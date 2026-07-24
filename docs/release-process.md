@@ -23,9 +23,9 @@ workflow:
 - `artifacts/nuget_packages/`
 - `local_testing/`
 
-At the time of writing, `automation/scripts/` is present but empty. That means
-this document describes the **target release workflow** and should be treated as
-the source of truth for implementing those scripts.
+The scripts in `automation/scripts/` implement the workflow described in this
+document. See the script file headers for parameter documentation and usage
+examples.
 
 ## Release Artifacts
 
@@ -299,10 +299,7 @@ After publishing, verify the user experience end to end:
 
 Use `local_testing/` or a disposable directory for this final smoke test.
 
-## Suggested Manual Commands
-
-The exact scripts are not implemented yet, but this is the expected release
-shape for the repository once automation is added:
+## Manual Commands
 
 ```powershell
 # 1. Validate template behavior
@@ -310,10 +307,10 @@ shape for the repository once automation is added:
 .\automation\scripts\validate-templates.ps1
 
 # 2. Package the template pack
-.\automation\scripts\pack-templates.ps1
+.\automation\scripts\pack-templates.ps1 -Version 1.0.0
 
 # 3. Publish the package
-.\automation\scripts\publish-templates.ps1
+.\automation\scripts\publish-templates.ps1 -Version 1.0.0 -ApiKey $env:NUGET_API_KEY
 ```
 
 ## Pull Request Expectations for Release-Ready Changes

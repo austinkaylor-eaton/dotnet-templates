@@ -26,6 +26,9 @@ Use this section to collect release notes before the next package is published.
 
 - Initial repository documentation set created for architecture, authoring,
   naming conventions, release process, and template catalog.
+- Automation scripts: `install-local.ps1`, `uninstall-local.ps1`,
+  `validate-templates.ps1`, `pack-templates.ps1`, `publish-templates.ps1`,
+  and the shared helpers module `shared.ps1`.
 
 ### Changed
 

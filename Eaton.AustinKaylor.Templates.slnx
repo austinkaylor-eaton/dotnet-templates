@@ -10,6 +10,7 @@
         <File Path="automation/scripts/pack-templates.ps1" />
         <File Path="automation/scripts/publish-templates.ps1" />
         <File Path="automation/scripts/run-spectral-lint.ps1" />
+        <File Path="automation/scripts/shared.ps1" />
         <File Path="automation/scripts/uninstall-local.ps1" />
         <File Path="automation/scripts/validate-templates.ps1" />
     </Folder>

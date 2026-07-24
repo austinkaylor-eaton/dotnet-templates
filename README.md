@@ -63,11 +63,9 @@ This folder is git-ignored so you can safely:
 
 The repository structure and documentation are in place.
 
-At the time of writing:
-
-- `automation/scripts/` exists but does not yet contain the release scripts
-- `artifacts/nuget_packages/` is the intended package output location
-- `docs/` is the canonical place for repository guidance
+Automation scripts in `automation/scripts/` cover install, uninstall, validate,
+pack, and publish. A shared helpers module lives at
+`automation/scripts/shared.ps1`.
 
 ## Reference Material
 
