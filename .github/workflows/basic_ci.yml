@@ -9,20 +9,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request_target' || github.event.pull_request.merged == true
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+#  build:
+#    runs-on: ubuntu-latest
+#    if: github.event_name != 'pull_request_target' || github.event.pull_request.merged == true
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Run a one-line script
+#        run: echo Hello, world!
+#
+#      - name: Run a multi-line script
+#        run: |
+#          echo Add other actions to build,
+#          echo test, and deploy your project.
 
   update-changelog:
     runs-on: ubuntu-latest
@@ -47,7 +47,9 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          pwsh ${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1 -PrBody "$env:PR_BODY" -PrNumber $env:PR_NUMBER
+          pwsh -File "${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1" `
+            -PrBody $env:PR_BODY `
+            -PrNumber ([int]$env:PR_NUMBER)
 
       - name: Commit changelog updates
         run: |
