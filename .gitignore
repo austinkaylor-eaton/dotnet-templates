@@ -430,4 +430,15 @@ FodyWeavers.xsd
 
 # JetBrains
 .idea/
+
+# Repository Specific
+!artifacts/
+artifacts/**
+!artifacts/**/
+!artifacts/**/placeholder.txt
+
 local_testing/*
+!local_testing/
+!local_testing/**/
+local_testing/**/*
+!local_testing/**/placeholder.txt
