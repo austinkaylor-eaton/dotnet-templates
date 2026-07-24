@@ -27,7 +27,9 @@
         <File Path="docs/release-process.md" />
         <File Path="docs/template-catalog.md" />
     </Folder>
-    <Folder Name="/local_testing/" />
+    <Folder Name="/local_testing/">
+        <File Path="local_testing/placeholder.txt" />
+    </Folder>
     <Folder Name="/templates/" />
     <Folder Name="/templates/item/" />
     <Folder Name="/templates/project/" />
