@@ -1,7 +1,7 @@
 # dotnet-templates
 Contains a bunch of different dotnet templates for the dotnet new CLI command
 
-# LocalTesting Folder
+# local_testing Folder
 Use this folder to test your templates locally before publishing them to NuGet. 
 
 >This folder's contents are ignored by git, so you can safely add throw-away projects and solutions here without worrying about accidentally committing them to the repository..
