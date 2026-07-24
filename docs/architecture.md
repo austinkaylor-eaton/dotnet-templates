@@ -47,7 +47,7 @@ Home for all template source code, organized by lifecycle stage and type:
 #### `templates/item/`
 Item templates (files that inject into existing projects):
 - `templates/item/<name>/src/` — Template source files
-- `templates/item/<name>/.template.config/` — Metadata (`template.json`)
+- `templates/item/<name>/src/.template.config/` — Metadata (`template.json`)
 - `templates/item/<name>/tests/` — Validation tests (smoke, snapshot)
 - `templates/item/<name>/README.md` — Usage, parameters, examples
 
@@ -56,7 +56,7 @@ Item templates (files that inject into existing projects):
 #### `templates/project/`
 Project templates (generate new `.csproj` + associated files):
 - `templates/project/<name>/src/` — Full project structure
-- `templates/project/<name>/.template.config/` — Metadata
+- `templates/project/<name>/src/.template.config/` — Metadata
 - `templates/project/<name>/tests/` — Build/restore verification
 - `templates/project/<name>/README.md` — Usage guide
 
@@ -85,7 +85,7 @@ Tooling and CI/CD pipelines:
 ### `/artifacts` — Build Outputs
 
 Non-source artifacts:
-- **`artifacts/nupkgs/`** — Generated `.nupkg` files ready to publish
+- **`artifacts/nuget_packages/`** — Generated `.nupkg` files ready to publish
 - **`artifacts/logs/`** — CI/CD logs, test reports, validation output
 
 *Git-ignored for security and size.*
@@ -153,7 +153,7 @@ templates/item/eaton-class/
 
 Templates use placeholder syntax:
 - `^` prefix for symbols: `^ClassName^`, `^Namespace^`
-- Built-in: `ProjectName`, `TargetFramework`, `HostIdentifier`
+- Built-in: `name`, `TargetFramework`, `HostIdentifier`
 - Custom: author-defined (e.g., `EnableAuth`, `IncludeTests`)
 
 Example:
@@ -168,7 +168,7 @@ public class ^ClassName^
 }
 ```
 
-When a user runs `dotnet new eaton-class --namespace My.App --classname User --description "User entity"`, the symbols get replaced.
+When a user runs `dotnet new eaton-class --namespace My.App --class-name User --description "User entity"`, the symbols get replaced.
 
 ## Template Lifecycle
 
@@ -187,7 +187,7 @@ When a user runs `dotnet new eaton-class --namespace My.App --classname User --d
 # Generate in local_testing/
 cd local_testing
 dotnet new eaton-class --help
-dotnet new eaton-class --namespace My.App --classname Foo
+dotnet new eaton-class --namespace My.App --class-name Foo
 
 # Verify output, build, test
 dotnet build
@@ -216,7 +216,7 @@ Validates:
 .\automation\scripts\pack-templates.ps1
 ```
 
-Creates `artifacts/nupkgs/Eaton.AustinKaylor.Templates.1.0.0.nupkg` containing:
+Creates `artifacts/nuget_packages/Eaton.AustinKaylor.Templates.1.0.0.nupkg` containing:
 - All template sources
 - Configuration metadata
 - License, readme
@@ -229,34 +229,22 @@ Creates `artifacts/nupkgs/Eaton.AustinKaylor.Templates.1.0.0.nupkg` containing:
 
 Once published, users can install:
 ```powershell
-dotnet new install Eaton.AustainKaylor.Templates
+dotnet new install Eaton.AustinKaylor.Templates
 dotnet new eaton-class --help
 ```
 
-## Naming & Identity Convention
+## Canonical Documentation Ownership
 
-To keep the CLI clean and distinguish templates:
+To keep this document focused on structure and system design, use these other
+documents as the canonical home for operational detail:
 
-| Aspect | Pattern | Example |
-|--------|---------|---------|
-| **Full Identity** | `Eaton.Templates.<Type>.<Name>.CSharp` | `Eaton.Templates.Item.Class.CSharp` |
-| **Short Name** | kebab-case, CLI-friendly | `eaton-class` |
-| **Package ID** | NuGet feed name | `Eaton.AustainKaylor.Templates` |
-| **Group Identity** | Same for variants | `Eaton.Templates.Project.WebApi.CSharp` |
-
-See `docs/naming-conventions.md` for details.
-
-## Versioning Strategy
-
-- **Semantic Versioning**: `MAJOR.MINOR.PATCH`
-  - **MAJOR**: Breaking changes to template output or symbols
-  - **MINOR**: New templates added, new optional symbols
-  - **PATCH**: Bug fixes, internal cleanup
-  
-- **Package Version**: Single version for entire package (`Eaton.AustainKaylor.Templates`)
-- **Release Notes**: Documented in `CHANGELOG.md` and GitHub releases
-
-See `docs/release-process.md` for detailed workflow.
+- `docs/naming-conventions.md` — template identity, `shortName`, folder names,
+  symbol naming, and package naming
+- `docs/authoring-guide.md` — how to create templates, define symbols, and test
+  generated output
+- `docs/release-process.md` — versioning, packaging, publishing, tagging, and
+  release validation
+- `docs/template-catalog.md` — template inventory and lifecycle status values
 
 ## CI/CD Pipeline
 
@@ -270,7 +258,7 @@ Triggered on every commit to `main`:
 
 2. **Packaging** — Run `pack-templates.ps1`
    - Embed version from `automation/version.json`
-   - Create `.nupkg` in `artifacts/nupkgs/`
+   - Create `.nupkg` in `artifacts/nuget_packages/`
 
 3. **Publishing** (manual or scheduled)
    - Push `.nupkg` to NuGet or internal feed
@@ -291,7 +279,7 @@ Triggered on every commit to `main`:
 - **Unified Versioning**: All templates ship together, reducing coordination overhead
 - **Single Feed Dependency**: Users depend on one package
 
-*Alternative*: Split into separate NuGet packages (`Eaton.AustainKaylor.Templates.Item`, `Eaton.AustainKaylor.Templates.Project`). Revisit if templates diverge significantly in release cadence.
+*Alternative*: Split into separate NuGet packages (`Eaton.AustinKaylor.Templates.Items`, `Eaton.AustinKaylor.Templates.Projects`). Revisit if templates diverge significantly in release cadence.
 
 ### Why Local Testing Folder?
 
@@ -335,7 +323,7 @@ NuGet handles pre-release automatically; document in `CHANGELOG.md`.
 |------|--------|--------|
 | Install locally for testing | `.\automation\scripts\install-local.ps1` | Templates in local cache |
 | Validate all templates | `.\automation\scripts\validate-templates.ps1` | Build report, pass/fail |
-| Create NuGet package | `.\automation\scripts\pack-templates.ps1` | `.nupkg` in `artifacts/nupkgs/` |
+| Create NuGet package | `.\automation\scripts\pack-templates.ps1` | `.nupkg` in `artifacts/nuget_packages/` |
 | Publish to feed | `.\automation\scripts\publish-templates.ps1` | Live on NuGet or internal feed |
 | Uninstall from local cache | `.\automation\scripts\uninstall-local.ps1` | Removes local templates |
 

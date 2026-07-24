@@ -214,21 +214,8 @@ Recommended structure:
 For every newly released template or meaningful template revision, update
 `docs/template-catalog.md`.
 
-Recommended columns already exist in the file:
-
-- `short name`
-- `type`
-- `language`
-- `baseline/framework`
-- `status`
-- `package version introduced`
-
-Use the following status values consistently:
-
-- `draft`
-- `ready`
-- `published`
-- `deprecated`
+Use `docs/template-catalog.md` as the canonical source for catalog columns,
+status values, and maintenance rules.
 
 ### 8. Create the Release Commit
 

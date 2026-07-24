@@ -1,11 +1,12 @@
 ﻿# Template Authoring Guide
 
-This guide walks you through creating a new `dotnet new` template from scratch. You'll learn how to structure templates, define symbols, set up metadata, and test them locally before publishing.
+This guide walks you through creating a new `dotnet new` template from scratch. You'll learn how to structure templates, define symbols, set up metadata, and test them locally before handing the template off to the release process.
 
 ## Before You Start
 
 - Review `architecture.md` to understand the repository structure
 - Review `naming-conventions.md` to understand template identity and naming
+- Review `release-process.md` for versioning, packaging, and publishing responsibilities
 - Have the [Microsoft Learn: Create a custom template](https://learn.microsoft.com/en-us/dotnet/core/tools/custom-templates) docs handy
 - Decide your template type: **item**, **project**, or **solution**
 
@@ -106,7 +107,7 @@ public class ^ClassName^
   "$schema": "http://json.schemastore.org/dotnetcli.host",
   "usageExamples": [
     "dotnet new eaton-class",
-    "dotnet new eaton-class --namespace MyApp --classname User --description \"Represents a user\""
+    "dotnet new eaton-class --namespace MyApp --class-name User --description \"Represents a user\""
   ],
   "symbolInfo": [
     {
@@ -118,7 +119,7 @@ public class ^ClassName^
     {
       "id": "ClassName",
       "description": "The name of the class",
-      "longName": "classname",
+      "longName": "class-name",
       "shortName": "c"
     },
     {
@@ -161,23 +162,23 @@ exit 0
 
 **File:** `templates/item/eaton-mytemplate/README.md`
 
-```markdown
+Example content:
+
+```text
 # Eaton Class Template
 
 Generates a new C# class with XML documentation comments.
 
 ## Usage
 
-```bash
-dotnet new eaton-class --namespace My.App --classname User --description "A user entity"
-```
+dotnet new eaton-class --namespace My.App --class-name User --description "A user entity"
 
 ## Parameters
 
 | Parameter | Short | Description | Default |
 |-----------|-------|-------------|---------|
 | `--namespace` | `--ns` | Target namespace | `MyNamespace` |
-| `--classname` | `-c` | Class name | `MyClass` |
+| `--class-name` | `-c` | Class name | `MyClass` |
 | `--description` | `-d` | XML doc summary | `A new class` |
 
 ## Generated Files
@@ -186,7 +187,6 @@ dotnet new eaton-class --namespace My.App --classname User --description "A user
 
 ## Example Output
 
-```csharp
 namespace My.App;
 
 /// <summary>
@@ -205,21 +205,21 @@ public class User
 .\automation\scripts\install-local.ps1
 
 # Create a test project to generate into
-mkdir local_testing\test-eaton-class
-cd local_testing\test-eaton-class
+New-Item -ItemType Directory -Path .\local_testing\test-eaton-class -Force
+Set-Location .\local_testing\test-eaton-class
 
 # Create a dummy project structure
 dotnet new classlib -n TestApp
-cd TestApp
+Set-Location .\TestApp
 
 # Generate the template
-dotnet new eaton-class --namespace TestApp --classname MyEntity --description "Test entity"
+dotnet new eaton-class --namespace TestApp --class-name MyEntity --description "Test entity"
 
 # Verify the generated file
-cat MyFile.cs
+Get-Content .\MyEntity.cs
 
 # Clean up
-cd ..\..\..
+Set-Location ..\..\..
 ```
 
 ---
@@ -263,6 +263,7 @@ templates/project/eaton-webapi/
   "classifications": ["Web"],
   "name": "Eaton Web API",
   "identity": "Eaton.Templates.Project.WebApi.CSharp",
+  "groupIdentity": "Eaton.Templates.Project.WebApi.CSharp",
   "shortName": "eaton-webapi",
   "description": "Creates a minimal ASP.NET Core Web API with health checks.",
   "tags": {
@@ -444,6 +445,9 @@ Templates have automatic symbols:
 
 ### 1. Use Clear, Descriptive Symbol Names
 
+Use `docs/naming-conventions.md` as the canonical source for naming rules. This
+section summarizes the authoring implications of those rules.
+
 **Good:**
 ```json
 {
@@ -489,7 +493,7 @@ Remove-Item -Force *.user
 
 ### 4. Use Short Names Consistently
 
-Follow the naming convention: `eaton-<type>-<name>`
+Follow the naming convention from `docs/naming-conventions.md`: `eaton-<name>`
 
 - `eaton-class` ✓
 - `eaton-interface` ✓
@@ -555,21 +559,22 @@ If you don't set `fileRename`, all generated files will be named literally (e.g.
 .\automation\scripts\install-local.ps1
 
 # 2. List installed templates
-dotnet new list | grep eaton
+dotnet new list
 
 # 3. Test generation with defaults
-mkdir local_testing\my-test
-cd local_testing\my-test
+New-Item -ItemType Directory -Path .\local_testing\my-test -Force
+Set-Location .\local_testing\my-test
 dotnet new eaton-class
 dotnet build  # if applicable
 
 # 4. Test with custom parameters
-dotnet new eaton-class --namespace My.App --classname User
+dotnet new eaton-class --namespace My.App --class-name User
 
 # 5. Verify output
-cat MyFile.cs
+Get-Content .\MyClass.cs
 
 # 6. Uninstall when done
+Set-Location ..\..
 .\automation\scripts\uninstall-local.ps1
 ```
 
@@ -614,7 +619,7 @@ param([string]$OutputPath)
 dotnet new eaton-webapi -o $OutputPath
 
 # Restore and build
-cd $OutputPath
+Set-Location $OutputPath
 $buildResult = dotnet build 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Build failed: $buildResult"
@@ -644,10 +649,12 @@ exit 0
 {
   "ClassName": {
     "type": "parameter",
-    "replaces": "^ClassName^"  // ← Must match template placeholder exactly
+    "replaces": "^ClassName^"
   }
 }
 ```
+
+The `replaces` value must match the placeholder in the template exactly.
 
 ### Issue: File Names Not Changing
 
@@ -661,11 +668,13 @@ exit 0
 {
   "ClassName": {
     "type": "parameter",
-    "fileRename": "MyFile",   // ← Base name in template
+    "fileRename": "MyFile",
     "replaces": "^ClassName^"
   }
 }
 ```
+
+The `fileRename` value must match the base file name used in the template.
 
 ### Issue: Help Not Showing Parameters
 
@@ -681,7 +690,7 @@ exit 0
     {
       "id": "ClassName",
       "description": "The class name",
-      "longName": "classname",
+      "longName": "class-name",
       "shortName": "c"
     }
   ]
@@ -690,7 +699,7 @@ exit 0
 
 ---
 
-## Checklist: Before Publishing
+## Checklist: Before Opening a Release-Ready Pull Request
 
 - [ ] Template structure is organized (`src/`, `.template.config/`, `tests/`, `README.md`)
 - [ ] `template.json` is valid JSON (use jsonlint or IDE)
@@ -701,9 +710,12 @@ exit 0
 - [ ] Template source is clean (no `bin/`, `obj/`, `.user` files)
 - [ ] Local tests pass: `.\automation\scripts\validate-templates.ps1`
 - [ ] README documents all parameters and shows example usage
-- [ ] Short name follows convention: `eaton-<type>-<name>`
+- [ ] Naming follows `docs/naming-conventions.md`
 - [ ] Description is clear and concise
 - [ ] Post-actions (if any) are tested
+
+For packaging, versioning, publishing, and tagging, follow
+`docs/release-process.md`.
 
 ---
 
