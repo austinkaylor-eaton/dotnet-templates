@@ -15,11 +15,11 @@ This guide walks you through creating a new `dotnet new` template from scratch. 
 
 ## Template Types at a Glance
 
-| Type | Use When | Example |
-|------|----------|---------|
-| **Item** | Adding a file to an existing project | class, interface, enum, XAML view |
-| **Project** | Creating a new `.csproj` with full structure | console app, web API, class library |
-| **Solution** | Creating a `.sln` with multiple projects | monolithic app, microservices starter |
+| Type         | Use When                                     | Example                               |
+|--------------|----------------------------------------------|---------------------------------------|
+| **Item**     | Adding a file to an existing project         | class, interface, enum, XAML view     |
+| **Project**  | Creating a new `.csproj` with full structure | console app, web API, class library   |
+| **Solution** | Creating a `.sln` with multiple projects     | monolithic app, microservices starter |
 
 ## Quick Start: Create an Item Template
 
