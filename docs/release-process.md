@@ -17,13 +17,13 @@ auditable, and easy to automate as the repository grows.
 The repository already contains the release-related folders used by the planned
 workflow:
 
-- `automation/ci/`
-- `automation/scripts/`
-- `artifacts/logs/`
-- `artifacts/nuget_packages/`
-- `local_testing/`
+- [automation/ci/](../automation/ci/)
+- [automation/scripts/](../automation/scripts/)
+- [artifacts/logs/](../artifacts/logs/)
+- [artifacts/nuget_packages/](../artifacts/nuget_packages/)
+- [local_testing/](../local_testing/)
 
-The scripts in `automation/scripts/` implement the workflow described in this
+The scripts in [automation/scripts/](../automation/scripts/) implement the workflow described in this
 document. See the script file headers for parameter documentation and usage
 examples.
 
@@ -31,13 +31,13 @@ examples.
 
 Each release should produce the following outputs:
 
-| Artifact | Location | Purpose |
-| ------- | -------- | ------- |
-| NuGet package | `artifacts/nuget_packages/` | Installable template pack |
-| Validation logs | `artifacts/logs/` | Test and packaging output |
-| Changelog entry | `CHANGELOG.md` | Human-readable release notes |
-| Catalog updates | `docs/template-catalog.md` | Template inventory by version |
-| Git tag | repository tag | Immutable version reference |
+| Artifact        | Location                                                    | Purpose                       |
+|-----------------|-------------------------------------------------------------|-------------------------------|
+| NuGet package   | `[artifacts/nuget_packages/](../artifacts/nuget_packages/)` | Installable template pack     |
+| Validation logs | `[artifacts/logs/](../artifacts/logs/)`                     | Test and packaging output     |
+| Changelog entry | `[CHANGELOG.md](../CHANGELOG.md)`                           | Human-readable release notes  |
+| Catalog updates | `[docs/template-catalog.md](../docs/template-catalog.md)`   | Template inventory by version |
+| Git tag         | repository tag                                              | Immutable version reference   |
 
 ## Versioning Policy
 
@@ -49,11 +49,11 @@ MAJOR.MINOR.PATCH
 
 ### When to Bump Each Part
 
-| Version Part | Use When | Examples |
-| ------------ | -------- | -------- |
-| `MAJOR` | A change is breaking for consumers | Renamed symbols, removed template, changed generated structure in a disruptive way |
-| `MINOR` | A release adds functionality without breaking existing usage | New template, new optional parameter, new non-breaking baseline |
-| `PATCH` | A release fixes issues without adding significant functionality | README fixes, template bug fix, packaging cleanup |
+| Version Part | Use When                                                        | Examples                                                                           |
+|--------------|-----------------------------------------------------------------|------------------------------------------------------------------------------------|
+| `MAJOR`      | A change is breaking for consumers                              | Renamed symbols, removed template, changed generated structure in a disruptive way |
+| `MINOR`      | A release adds functionality without breaking existing usage    | New template, new optional parameter, new non-breaking baseline                    |
+| `PATCH`      | A release fixes issues without adding significant functionality | README fixes, template bug fix, packaging cleanup                                  |
 
 ### Breaking Change Guidance
 
@@ -107,11 +107,11 @@ Start a release when one or more of the following are true:
 For a small repository, one maintainer may perform all of these steps. As the
 repo grows, split responsibilities logically.
 
-| Role | Responsibilities |
-| ---- | ---------------- |
-| Template author | Implement template changes, add tests, update template README |
-| Reviewer | Verify correctness, naming, docs, and release readiness |
-| Release maintainer | Choose version, update changelog, package, publish, tag |
+| Role               | Responsibilities                                              |
+|--------------------|---------------------------------------------------------------|
+| Template author    | Implement template changes, add tests, update template README |
+| Reviewer           | Verify correctness, naming, docs, and release readiness       |
+| Release maintainer | Choose version, update changelog, package, publish, tag       |
 
 ## End-to-End Release Workflow
 
@@ -140,9 +140,9 @@ Before packaging, each changed template should have:
 
 Cross-check:
 
-- `docs/naming-conventions.md`
-- `docs/authoring-guide.md`
-- `docs/architecture.md`
+- [docs/naming-conventions.md](naming-conventions.md)
+- [docs/authoring-guide.md](authoring-guide.md)
+- [docs/architecture.md](architecture.md)
 
 ### 3. Run Local Validation
 
@@ -185,7 +185,7 @@ Examples:
 
 ### 6. Prepare the Changelog
 
-Add a new entry to `CHANGELOG.md` for the version being released.
+Add a new entry to [CHANGELOG.md](../CHANGELOG.md) for the version being released.
 
 Recommended structure:
 
@@ -212,9 +212,9 @@ Recommended structure:
 ### 7. Update the Template Catalog
 
 For every newly released template or meaningful template revision, update
-`docs/template-catalog.md`.
+[docs/template-catalog.md](template-catalog.md).
 
-Use `docs/template-catalog.md` as the canonical source for catalog columns,
+Use [docs/template-catalog.md](template-catalog.md) as the canonical source for catalog columns,
 status values, and maintenance rules.
 
 ### 8. Create the Release Commit
@@ -315,15 +315,15 @@ Use `local_testing/` or a disposable directory for this final smoke test.
 
 ## Pull Request Expectations for Release-Ready Changes
 
-A pull request that introduces releaseable template changes should normally
+A pull request that introduces releasable template changes should normally
 include:
 
 - template source changes
 - metadata changes in `template.json`
 - any required updates to `dotnetcli.host.json`
 - template-specific README updates
-- `docs/template-catalog.md` updates if a template is added or promoted
-- `CHANGELOG.md` entry if the change is intended for the next release
+- [docs/template-catalog.md](template-catalog.md) updates if a template is added or promoted
+- [CHANGELOG.md](../CHANGELOG.md) entry if the change is intended for the next release
 
 ## CI/CD Expectations
 
@@ -335,7 +335,7 @@ As automation is added, the CI/CD workflow should enforce these stages:
 - Install templates locally in a clean environment
 - Generate sample outputs for changed templates
 - Restore and build generated projects
-- Save logs to `artifacts/logs/`
+- Save logs to [artifacts/logs/](../artifacts/logs/)
 
 ### Packaging Stage
 
@@ -373,8 +373,8 @@ Symptoms:
 
 Prevention:
 
-- always update `CHANGELOG.md` and `docs/template-catalog.md` in the same PR as
-  the releaseable change
+- always update [CHANGELOG.md](../CHANGELOG.md) and [docs/template-catalog.md](template-catalog.md) in the same PR as
+  the releasable change
 
 ### Publishing Without Clean Validation
 
@@ -416,8 +416,8 @@ Prevention:
 - [ ] Scope for the release is defined
 - [ ] Changed templates were tested locally
 - [ ] Generated output restores and builds where applicable
-- [ ] `CHANGELOG.md` is updated
-- [ ] `docs/template-catalog.md` is updated
+- [ ] [CHANGELOG.md](../CHANGELOG.md) is updated
+- [ ] [docs/template-catalog.md](template-catalog.md) is updated
 - [ ] Version number is chosen and reviewed
 - [ ] Package contents were verified
 - [ ] Package was published successfully
@@ -437,9 +437,9 @@ As the repository matures, add the following:
 
 ## Related Documents
 
-- `docs/architecture.md`
-- `docs/authoring-guide.md`
-- `docs/naming-conventions.md`
-- `docs/template-catalog.md`
-- `CHANGELOG.md`
+- [docs/architecture.md](architecture.md)
+- [docs/authoring-guide.md](authoring-guide.md)
+- [docs/naming-conventions.md](naming-conventions.md)
+- [docs/template-catalog.md](template-catalog.md)
+- [CHANGELOG.md](../CHANGELOG.md)
 
