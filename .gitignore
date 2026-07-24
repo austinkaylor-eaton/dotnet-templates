@@ -435,10 +435,10 @@ FodyWeavers.xsd
 !artifacts/
 artifacts/**
 !artifacts/**/
-!artifacts/**/placeholder.txt
+!artifacts/**/.gitkeep
 
 local_testing/*
 !local_testing/
 !local_testing/**/
 local_testing/**/*
-!local_testing/**/placeholder.txt
+!local_testing/**/.gitkeep
