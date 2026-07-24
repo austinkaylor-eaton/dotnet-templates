@@ -70,7 +70,7 @@ Use entries like these once templates are added:
 
 ## Related Documents
 
-- [docs/architecture.md](architecture.md)
-- [docs/authoring-guide.md](authoring-guide.md)
-- [docs/naming-conventions.md](naming-conventions.md)
-- [docs/release-process.md](release-process.md)
+- [architecture.md](architecture.md)
+- [authoring-guide.md](authoring-guide.md)
+- [naming-conventions.md](naming-conventions.md)
+- [release-process.md](release-process.md)

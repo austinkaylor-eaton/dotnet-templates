@@ -17,13 +17,13 @@ auditable, and easy to automate as the repository grows.
 The repository already contains the release-related folders used by the planned
 workflow:
 
-- [automation/ci/](../automation/ci/)
-- [automation/scripts/](../automation/scripts/)
-- [artifacts/logs/](../artifacts/logs/)
-- [artifacts/nuget_packages/](../artifacts/nuget_packages/)
-- [local_testing/](../local_testing/)
+- `automation/ci/`
+- `automation/scripts/`
+- `artifacts/logs/`
+- `artifacts/nuget_packages/`
+- `local_testing/`
 
-The scripts in [automation/scripts/](../automation/scripts/) implement the workflow described in this
+The scripts in `automation/scripts/` implement the workflow described in this
 document. See the script file headers for parameter documentation and usage
 examples.
 
@@ -33,10 +33,10 @@ Each release should produce the following outputs:
 
 | Artifact        | Location                                                    | Purpose                       |
 |-----------------|-------------------------------------------------------------|-------------------------------|
-| NuGet package   | `[artifacts/nuget_packages/](../artifacts/nuget_packages/)` | Installable template pack     |
-| Validation logs | `[artifacts/logs/](../artifacts/logs/)`                     | Test and packaging output     |
-| Changelog entry | `[CHANGELOG.md](../CHANGELOG.md)`                           | Human-readable release notes  |
-| Catalog updates | `[docs/template-catalog.md](../docs/template-catalog.md)`   | Template inventory by version |
+| NuGet package   | `artifacts/nuget_packages/` | Installable template pack     |
+| Validation logs | `artifacts/logs/`           | Test and packaging output     |
+| Changelog entry | `CHANGELOG.md`              | Human-readable release notes  |
+| Catalog updates | `docs/template-catalog.md`  | Template inventory by version |
 | Git tag         | repository tag                                              | Immutable version reference   |
 
 ## Versioning Policy
@@ -140,22 +140,22 @@ Before packaging, each changed template should have:
 
 Cross-check:
 
-- [docs/naming-conventions.md](naming-conventions.md)
-- [docs/authoring-guide.md](authoring-guide.md)
-- [docs/architecture.md](architecture.md)
+- [naming-conventions.md](naming-conventions.md)
+- [authoring-guide.md](authoring-guide.md)
+- [architecture.md](architecture.md)
 
 ### 3. Run Local Validation
 
 Validate the changed templates locally before creating a release commit.
 
-Expected future commands:
+Commands:
 
 ```powershell
 .\automation\scripts\install-local.ps1
 .\automation\scripts\validate-templates.ps1
 ```
 
-At minimum, validate these behaviors manually until the scripts exist:
+Validate these behaviors before release:
 
 - the template installs successfully
 - `dotnet new list` shows the expected template metadata
@@ -212,9 +212,9 @@ Recommended structure:
 ### 7. Update the Template Catalog
 
 For every newly released template or meaningful template revision, update
-[docs/template-catalog.md](template-catalog.md).
+[template-catalog.md](template-catalog.md).
 
-Use [docs/template-catalog.md](template-catalog.md) as the canonical source for catalog columns,
+Use [template-catalog.md](template-catalog.md) as the canonical source for catalog columns,
 status values, and maintenance rules.
 
 ### 8. Create the Release Commit
@@ -233,7 +233,7 @@ This makes it easier to trace tags back to the exact release state.
 
 Create the NuGet package for the repository.
 
-Expected future command:
+Command:
 
 ```powershell
 .\automation\scripts\pack-templates.ps1
@@ -256,7 +256,7 @@ Before publishing, verify:
 
 Publish the package to the target feed.
 
-Expected future command:
+Command:
 
 ```powershell
 .\automation\scripts\publish-templates.ps1
@@ -322,7 +322,7 @@ include:
 - metadata changes in `template.json`
 - any required updates to `dotnetcli.host.json`
 - template-specific README updates
-- [docs/template-catalog.md](template-catalog.md) updates if a template is added or promoted
+- [template-catalog.md](template-catalog.md) updates if a template is added or promoted
 - [CHANGELOG.md](../CHANGELOG.md) entry if the change is intended for the next release
 
 ## CI/CD Expectations
@@ -335,7 +335,7 @@ As automation is added, the CI/CD workflow should enforce these stages:
 - Install templates locally in a clean environment
 - Generate sample outputs for changed templates
 - Restore and build generated projects
-- Save logs to [artifacts/logs/](../artifacts/logs/)
+- Save logs to `artifacts/logs/`
 
 ### Packaging Stage
 
@@ -373,7 +373,7 @@ Symptoms:
 
 Prevention:
 
-- always update [CHANGELOG.md](../CHANGELOG.md) and [docs/template-catalog.md](template-catalog.md) in the same PR as
+- always update [CHANGELOG.md](../CHANGELOG.md) and [template-catalog.md](template-catalog.md) in the same PR as
   the releasable change
 
 ### Publishing Without Clean Validation
@@ -417,7 +417,7 @@ Prevention:
 - [ ] Changed templates were tested locally
 - [ ] Generated output restores and builds where applicable
 - [ ] [CHANGELOG.md](../CHANGELOG.md) is updated
-- [ ] [docs/template-catalog.md](template-catalog.md) is updated
+- [ ] [template-catalog.md](template-catalog.md) is updated
 - [ ] Version number is chosen and reviewed
 - [ ] Package contents were verified
 - [ ] Package was published successfully
@@ -437,9 +437,9 @@ As the repository matures, add the following:
 
 ## Related Documents
 
-- [docs/architecture.md](architecture.md)
-- [docs/authoring-guide.md](authoring-guide.md)
-- [docs/naming-conventions.md](naming-conventions.md)
-- [docs/template-catalog.md](template-catalog.md)
+- [architecture.md](architecture.md)
+- [authoring-guide.md](authoring-guide.md)
+- [naming-conventions.md](naming-conventions.md)
+- [template-catalog.md](template-catalog.md)
 - [CHANGELOG.md](../CHANGELOG.md)
 

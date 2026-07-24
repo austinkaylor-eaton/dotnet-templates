@@ -51,7 +51,7 @@ Item templates (files that inject into existing projects):
 - `templates/item/<name>/tests/` — Validation tests (smoke, snapshot)
 - `templates/item/<name>/README.md` — Usage, parameters, examples
 
-**Example:** `eaton-austinkaylor-class/` generates a new C# class with comments.
+**Example:** `eaton-class/` generates a new C# class with comments.
 
 #### `templates/project/`
 Project templates (generate new `.csproj` + associated files):
@@ -60,7 +60,7 @@ Project templates (generate new `.csproj` + associated files):
 - `templates/project/<name>/tests/` — Build/restore verification
 - `templates/project/<name>/README.md` — Usage guide
 
-**Example:** `eaton-austinkaylor-webapi/` scaffolds an ASP.NET Core minimal API project.
+**Example:** `eaton-webapi/` scaffolds an ASP.NET Core minimal API project.
 
 #### `templates/solution/` (future)
 Solution templates (generate `.sln` + multi-project structure).
@@ -120,7 +120,7 @@ Use this to:
 Each template follows a predictable structure:
 
 ```
-templates/item/eaton-austinkaylor-class/
+templates/item/eaton-class/
   ├── src/
   │   ├── .template.config/
   │   │   ├── template.json         ← Metadata, symbols, hooks
@@ -137,7 +137,7 @@ templates/item/eaton-austinkaylor-class/
 
 **`template.json`**
 - `identity`: Unique full name (`Eaton.Templates.Item.Class.CSharp`)
-- `shortName`: CLI-friendly name (`eaton-austinkaylor-class`)
+- `shortName`: CLI-friendly name (`eaton-class`)
 - `name`: Display name
 - `description`: What the template does
 - `author`: Creator
@@ -168,70 +168,20 @@ public class ^ClassName^
 }
 ```
 
-When a user runs `dotnet new eaton-austinkaylor-class --namespace My.App --class-name User --description "User entity"`, the symbols get replaced.
+When a user runs `dotnet new eaton-class --namespace My.App --class-name User --description "User entity"`, the symbols get replaced.
 
 ## Template Lifecycle
 
-### 1. **Authoring**
-- Create new folder in `templates/item/` or `templates/project/`
-- Write template source in `src/`
-- Add `template.json` and `dotnetcli.host.json` to `src/.template.config/`
-- Add tests to `tests/`
-- Create `README.md` with usage examples
+The architecture supports a simple authoring-to-release workflow:
 
-### 2. **Local Testing**
-```powershell
-# Install to local cache
-.\automation\scripts\install-local.ps1
+1. Author templates under `templates/`
+2. Validate locally and in CI
+3. Package and publish a template pack
 
-# Generate in local_testing/
-cd local_testing
-dotnet new eaton-austinkaylor-class --help
-dotnet new eaton-austinkaylor-class --namespace My.App --class-name Foo
+For operational details and exact commands, use:
 
-# Verify output, build, test
-dotnet build
-```
-
-### 3. **Validation**
-```powershell
-# Run smoke tests
-.\automation\scripts\validate-templates.ps1
-```
-
-Validates:
-- Template JSON syntax
-- Symbol replacement works
-- Generated projects restore and build
-- No stale binaries in template source
-
-### 4. **Versioning & Documentation**
-- Update `CHANGELOG.md` (semver: major.minor.patch)
-- Add entry to [docs/template-catalog.md](template-catalog.md) with status and package version
-- Commit and create git tag (e.g., `v1.0.0`)
-
-### 5. **Packaging**
-```powershell
-# Pack all templates into .nupkg
-.\automation\scripts\pack-templates.ps1
-```
-
-Creates `artifacts/nuget_packages/Eaton.AustinKaylor.Templates.1.0.0.nupkg` containing:
-- All template sources
-- Configuration metadata
-- License, readme
-
-### 6. **Publishing**
-```powershell
-# Push to NuGet or internal feed
-.\automation\scripts\publish-templates.ps1
-```
-
-Once published, users can install:
-```powershell
-dotnet new install Eaton.AustinKaylor.Templates
-dotnet new eaton-austinkaylor-class --help
-```
+- [authoring-guide.md](authoring-guide.md) for authoring and local validation
+- [release-process.md](release-process.md) for versioning, packing, publishing, and tagging
 
 ## Canonical Documentation Ownership
 
