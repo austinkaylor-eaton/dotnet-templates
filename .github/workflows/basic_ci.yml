@@ -47,9 +47,7 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          pwsh -File "${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1" `
-            -PrBody $env:PR_BODY `
-            -PrNumber ([int]$env:PR_NUMBER)
+          pwsh -File "${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1" -PrBody $env:PR_BODY -PrNumber ([int]$env:PR_NUMBER)
 
       - name: Commit changelog updates
         run: |
