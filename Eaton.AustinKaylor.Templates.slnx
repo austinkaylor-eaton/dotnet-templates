@@ -5,7 +5,13 @@
     <Folder Name="/automation/" />
     <Folder Name="/automation/ci/" />
     <Folder Name="/automation/scripts/" />
-    <Folder Name="/docs/" />
+    <Folder Name="/docs/">
+        <File Path="docs/architecture.md" />
+        <File Path="docs/authoring-guide.md" />
+        <File Path="docs/naming-conventions.md" />
+        <File Path="docs/release-process.md" />
+        <File Path="docs/template-catalog.md" />
+    </Folder>
     <Folder Name="/local_testing/" />
     <Folder Name="/templates/" />
     <Folder Name="/templates/item/" />
