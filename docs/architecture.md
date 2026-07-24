@@ -51,7 +51,7 @@ Item templates (files that inject into existing projects):
 - `templates/item/<name>/tests/` — Validation tests (smoke, snapshot)
 - `templates/item/<name>/README.md` — Usage, parameters, examples
 
-**Example:** `eaton-class/` generates a new C# class with comments.
+**Example:** `eaton-austinkaylor-class/` generates a new C# class with comments.
 
 #### `templates/project/`
 Project templates (generate new `.csproj` + associated files):
@@ -60,7 +60,7 @@ Project templates (generate new `.csproj` + associated files):
 - `templates/project/<name>/tests/` — Build/restore verification
 - `templates/project/<name>/README.md` — Usage guide
 
-**Example:** `eaton-webapi/` scaffolds an ASP.NET Core minimal API project.
+**Example:** `eaton-austinkaylor-webapi/` scaffolds an ASP.NET Core minimal API project.
 
 #### `templates/solution/` (future)
 Solution templates (generate `.sln` + multi-project structure).
@@ -92,11 +92,11 @@ Non-source artifacts:
 
 ### `/docs` — Documentation
 
-- **`template-catalog.md`** — Master inventory of all templates (name, type, status, version)
-- **`naming-conventions.md`** — Identity, `shortName`, package name rules
-- **`authoring-guide.md`** — How to create a new template
-- **`release-process.md`** — Version, tag, package, publish workflow
-- **`architecture.md`** — This file
+- [template-catalog.md](template-catalog.md) — Master inventory of all templates (name, type, status, version)
+- [naming-conventions.md](naming-conventions.md) — Identity, `shortName`, package name rules
+- [authoring-guide.md](authoring-guide.md) — How to create a new template
+- [release-process.md](release-process.md) — Version, tag, package, publish workflow
+- [architecture.md](architecture.md) — This file
 
 ### `/local_testing` — Sandbox
 
@@ -120,7 +120,7 @@ Use this to:
 Each template follows a predictable structure:
 
 ```
-templates/item/eaton-class/
+templates/item/eaton-austinkaylor-class/
   ├── src/
   │   ├── .template.config/
   │   │   ├── template.json         ← Metadata, symbols, hooks
@@ -137,7 +137,7 @@ templates/item/eaton-class/
 
 **`template.json`**
 - `identity`: Unique full name (`Eaton.Templates.Item.Class.CSharp`)
-- `shortName`: CLI-friendly name (`eaton-class`)
+- `shortName`: CLI-friendly name (`eaton-austinkaylor-class`)
 - `name`: Display name
 - `description`: What the template does
 - `author`: Creator
@@ -168,7 +168,7 @@ public class ^ClassName^
 }
 ```
 
-When a user runs `dotnet new eaton-class --namespace My.App --class-name User --description "User entity"`, the symbols get replaced.
+When a user runs `dotnet new eaton-austinkaylor-class --namespace My.App --class-name User --description "User entity"`, the symbols get replaced.
 
 ## Template Lifecycle
 
@@ -186,8 +186,8 @@ When a user runs `dotnet new eaton-class --namespace My.App --class-name User --
 
 # Generate in local_testing/
 cd local_testing
-dotnet new eaton-class --help
-dotnet new eaton-class --namespace My.App --class-name Foo
+dotnet new eaton-austinkaylor-class --help
+dotnet new eaton-austinkaylor-class --namespace My.App --class-name Foo
 
 # Verify output, build, test
 dotnet build
@@ -207,7 +207,7 @@ Validates:
 
 ### 4. **Versioning & Documentation**
 - Update `CHANGELOG.md` (semver: major.minor.patch)
-- Add entry to `docs/template-catalog.md` with status and package version
+- Add entry to [docs/template-catalog.md](template-catalog.md) with status and package version
 - Commit and create git tag (e.g., `v1.0.0`)
 
 ### 5. **Packaging**
@@ -230,7 +230,7 @@ Creates `artifacts/nuget_packages/Eaton.AustinKaylor.Templates.1.0.0.nupkg` cont
 Once published, users can install:
 ```powershell
 dotnet new install Eaton.AustinKaylor.Templates
-dotnet new eaton-class --help
+dotnet new eaton-austinkaylor-class --help
 ```
 
 ## Canonical Documentation Ownership
@@ -238,13 +238,13 @@ dotnet new eaton-class --help
 To keep this document focused on structure and system design, use these other
 documents as the canonical home for operational detail:
 
-- `docs/naming-conventions.md` — template identity, `shortName`, folder names,
+- [naming-conventions.md](naming-conventions.md) — template identity, `shortName`, folder names,
   symbol naming, and package naming
-- `docs/authoring-guide.md` — how to create templates, define symbols, and test
+- [authoring-guide.md](authoring-guide.md) — how to create templates, define symbols, and test
   generated output
-- `docs/release-process.md` — versioning, packaging, publishing, tagging, and
+- [release-process.md](release-process.md) — versioning, packaging, publishing, tagging, and
   release validation
-- `docs/template-catalog.md` — template inventory and lifecycle status values
+- [template-catalog.md](template-catalog.md) — template inventory and lifecycle status values
 
 ## CI/CD Pipeline
 
@@ -299,7 +299,7 @@ Triggered on every commit to `main`:
 
 1. Create `templates/solution/` directory
 2. Add first solution template: `templates/solution/<name>/src/.template.config/template.json`
-3. Update `docs/template-catalog.md` with new row
+3. Update [docs/template-catalog.md](template-catalog.md) with new row
 4. Update `validate-templates.ps1` to include solution templates
 
 ### Adding Pre-Release Versions
@@ -319,13 +319,13 @@ NuGet handles pre-release automatically; document in `CHANGELOG.md`.
 
 ## Quick Reference
 
-| Task | Script | Result |
-|------|--------|--------|
-| Install locally for testing | `.\automation\scripts\install-local.ps1` | Templates in local cache |
-| Validate all templates | `.\automation\scripts\validate-templates.ps1` | Build report, pass/fail |
-| Create NuGet package | `.\automation\scripts\pack-templates.ps1` | `.nupkg` in `artifacts/nuget_packages/` |
-| Publish to feed | `.\automation\scripts\publish-templates.ps1` | Live on NuGet or internal feed |
-| Uninstall from local cache | `.\automation\scripts\uninstall-local.ps1` | Removes local templates |
+| Task                        | Script                                        | Result                                  |
+|-----------------------------|-----------------------------------------------|-----------------------------------------|
+| Install locally for testing | `.\automation\scripts\install-local.ps1`      | Templates in local cache                |
+| Validate all templates      | `.\automation\scripts\validate-templates.ps1` | Build report, pass/fail                 |
+| Create NuGet package        | `.\automation\scripts\pack-templates.ps1`     | `.nupkg` in `artifacts/nuget_packages/` |
+| Publish to feed             | `.\automation\scripts\publish-templates.ps1`  | Live on NuGet or internal feed          |
+| Uninstall from local cache  | `.\automation\scripts\uninstall-local.ps1`    | Removes local templates                 |
 
 ## References
 
