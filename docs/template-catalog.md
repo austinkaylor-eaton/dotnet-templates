@@ -24,39 +24,39 @@ Use it to answer these questions quickly:
 
 Use these status values consistently:
 
-| Status | Meaning |
-| ------ | ------- |
-| `draft` | Early work in progress; not ready for general use |
-| `ready` | Authoring and validation are complete; waiting for release |
-| `published` | Included in a published package |
-| `deprecated` | Still available, but no longer recommended for new use |
+| Status       | Meaning                                                    |
+|--------------|------------------------------------------------------------|
+| `draft`      | Early work in progress; not ready for general use          |
+| `ready`      | Authoring and validation are complete; waiting for release |
+| `published`  | Included in a published package                            |
+| `deprecated` | Still available, but no longer recommended for new use     |
 
 ## Catalog Columns
 
-| Column | Description |
-| ------ | ----------- |
-| `short name` | The `dotnet new` short name, such as `eaton-webapi` |
-| `type` | Template category: `item`, `project`, or `solution` |
-| `language` | Template language, currently `C#` |
-| `baseline/framework` | The primary target framework, platform, or baseline |
-| `status` | Current lifecycle status from the table above |
+| Column                       | Description                                          |
+|------------------------------|------------------------------------------------------|
+| `short name`                 | The `dotnet new` short name, such as `eaton-webapi`  |
+| `type`                       | Template category: `item`, `project`, or `solution`  |
+| `language`                   | Template language, currently `C#`                    |
+| `baseline/framework`         | The primary target framework, platform, or baseline  |
+| `status`                     | Current lifecycle status from the table above        |
 | `package version introduced` | The first package version that included the template |
 
 ## Current Catalog
 
-| short name | type | language | baseline/framework | status | package version introduced |
-| ---------- | ---- | -------- | ------------------ | ------ | -------------------------- |
-| _No templates published yet_ | - | - | - | `draft` | - |
+| short name                   | type | language | baseline/framework | status  | package version introduced |
+|------------------------------|------|----------|--------------------|---------|----------------------------|
+| _No templates published yet_ | -    | -        | -                  | `draft` | -                          |
 
 ## Example Entries
 
 Use entries like these once templates are added:
 
-| short name | type | language | baseline/framework | status | package version introduced |
-| ---------- | ---- | -------- | ------------------ | ------ | -------------------------- |
-| `eaton-class` | `item` | `C#` | `net8.0+` | `published` | `0.1.0` |
-| `eaton-webapi` | `project` | `C#` | `net8.0` | `published` | `0.2.0` |
-| `eaton-monolith` | `solution` | `C#` | `net9.0` | `ready` | - |
+| short name       | type       | language | baseline/framework | status      | package version introduced |
+|------------------|------------|----------|--------------------|-------------|----------------------------|
+| `eaton-class`    | `item`     | `C#`     | `net8.0+`          | `published` | `0.1.0`                    |
+| `eaton-webapi`   | `project`  | `C#`     | `net8.0`           | `published` | `0.2.0`                    |
+| `eaton-monolith` | `solution` | `C#`     | `net9.0`           | `ready`     | -                          |
 
 ## Maintenance Rules
 
@@ -70,7 +70,7 @@ Use entries like these once templates are added:
 
 ## Related Documents
 
-- `docs/architecture.md`
-- `docs/authoring-guide.md`
-- `docs/naming-conventions.md`
-- `docs/release-process.md`
+- [docs/architecture.md](architecture.md)
+- [docs/authoring-guide.md](authoring-guide.md)
+- [docs/naming-conventions.md](naming-conventions.md)
+- [docs/release-process.md](release-process.md)
