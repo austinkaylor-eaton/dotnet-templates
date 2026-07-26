@@ -1,3 +1,5 @@
+using Assert = TUnit.Assertions.Assert;
+
 namespace Item.Tests;
 
 public class BasicTests

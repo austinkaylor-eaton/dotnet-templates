@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.TemplateEngine.Authoring.TemplateVerifier" Version="10.0.302" />
         <PackageReference Include="TUnit" Version="1.6*"/>
     </ItemGroup>
 
