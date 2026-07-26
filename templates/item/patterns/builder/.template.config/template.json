@@ -7,7 +7,7 @@
   ],
   "name": "Eaton Builder Pattern Item",
   "identity": "Eaton.AustinKaylor.Templates.Item.Patterns.Builder.CSharp",
-  "shortName": "eaton-builder",
+  "shortName": "eaton-ajk-patterns-builder",
   "description": "Creates a C# builder pattern example item.",
   "sourceName": "Eaton.AustinKaylor.Templates.Item.Patterns.Builder",
   "defaultName": "Entity",
