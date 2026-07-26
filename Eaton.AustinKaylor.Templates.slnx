@@ -27,6 +27,8 @@
     </Folder>
     <Folder Name="/local_testing/" />
     <Folder Name="/templates/" />
-    <Folder Name="/templates/item/" />
+    <Folder Name="/templates/item/">
+        <File Path="templates/item/.template.config/template.json" />
+    </Folder>
     <Folder Name="/templates/project/" />
 </Solution>
