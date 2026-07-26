@@ -12,11 +12,14 @@ public class BuilderTests
     private const string TemplateShortName = "eaton-ajk-patterns-builder";
     private static readonly string TemplatePath = ResolveTemplatePath();
     private static readonly string RunOutputRoot = CreateRunOutputRoot();
+    private static readonly string BaselineSnapshotsRoot = ResolveBaselineSnapshotsPath();
 
     [Test]
     public async Task BuilderTemplate_DefaultInstantiationTest()
     {
         string testOutputDir = CreateAndPrepareTestOutputDirectory();
+        string snapshotsDirectory = PrepareSnapshotsDirectory();
+
         TemplateVerifierOptions options = new(templateName: TemplateShortName)
         {
             TemplatePath = TemplatePath,
@@ -25,7 +28,7 @@ public class BuilderTests
             //VerifyCommandOutput = true,
             DisableDiffTool = true,
             OutputDirectory = testOutputDir,
-            SnapshotsDirectory = Path.Combine(testOutputDir, "Snapshots")
+            SnapshotsDirectory = snapshotsDirectory
         };
 
         VerificationEngine engine = new(NullLogger.Instance);
@@ -36,6 +39,8 @@ public class BuilderTests
     public async Task BuilderTemplate_CustomArgsInstantiationTest()
     {
         string testOutputDir = CreateAndPrepareTestOutputDirectory();
+        string snapshotsDirectory = PrepareSnapshotsDirectory();
+
         TemplateVerifierOptions options = new(templateName: TemplateShortName)
         {
             TemplatePath = TemplatePath,
@@ -44,7 +49,7 @@ public class BuilderTests
             //VerifyCommandOutput = true,
             OutputDirectory = testOutputDir,
             DisableDiffTool = true,
-            SnapshotsDirectory = Path.Combine(testOutputDir, "Snapshots"),
+            SnapshotsDirectory = snapshotsDirectory,
             TemplateSpecificArgs =
             [
                 "--name", "Order",
@@ -81,13 +86,50 @@ public class BuilderTests
         string safeTestName = string.IsNullOrWhiteSpace(testName) ? "unknown-test" : testName;
         string testOutputPath = Path.Combine(RunOutputRoot, safeTestName);
 
-         if (Directory.Exists(testOutputPath))
-         {
-             Directory.Delete(testOutputPath, recursive: true);
-         }
+        if (Directory.Exists(testOutputPath))
+        {
+            Directory.Delete(testOutputPath, recursive: true);
+        }
 
-         Directory.CreateDirectory(testOutputPath);
-         return testOutputPath;
+        Directory.CreateDirectory(testOutputPath);
+        return testOutputPath;
+    }
+
+    /// <summary>
+    /// Copies baseline snapshots into a test-specific snapshot directory so verification is deterministic.
+    /// </summary>
+    /// <returns>The path to the prepared snapshots directory.</returns>
+    private static string PrepareSnapshotsDirectory()
+    {
+        string snapshotsPath = Path.Combine(RunOutputRoot, "snapshot-baseline", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(snapshotsPath);
+
+        CopyDirectory(BaselineSnapshotsRoot, snapshotsPath);
+        return snapshotsPath;
+    }
+
+    /// <summary>
+    /// Recursively copies one directory tree into another.
+    /// </summary>
+    /// <param name="sourceDirectoryPath">The directory to copy from.</param>
+    /// <param name="destinationDirectoryPath">The directory to copy into.</param>
+    private static void CopyDirectory(string sourceDirectoryPath, string destinationDirectoryPath)
+    {
+        Directory.CreateDirectory(destinationDirectoryPath);
+
+        foreach (string filePath in Directory.GetFiles(sourceDirectoryPath))
+        {
+            string fileName = Path.GetFileName(filePath);
+            string destinationPath = Path.Combine(destinationDirectoryPath, fileName);
+            File.Copy(filePath, destinationPath, overwrite: true);
+        }
+
+        foreach (string directoryPath in Directory.GetDirectories(sourceDirectoryPath))
+        {
+            string directoryName = Path.GetFileName(directoryPath);
+            string destinationPath = Path.Combine(destinationDirectoryPath, directoryName);
+            CopyDirectory(directoryPath, destinationPath);
+        }
     }
 
     /// <summary>
@@ -140,5 +182,33 @@ public class BuilderTests
         }
 
         throw new InvalidOperationException("Could not locate repository root for local_testing.");
+    }
+
+    /// <summary>
+    /// Resolves the path to the checked-in snapshot baseline directory.
+    /// </summary>
+    /// <returns>The path to the snapshot baseline directory.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the repository root or snapshots directory is not found.</exception>
+    private static string ResolveBaselineSnapshotsPath()
+    {
+        DirectoryInfo? current = new(AppContext.BaseDirectory);
+
+        while (current is not null)
+        {
+            if (File.Exists(Path.Combine(current.FullName, "Eaton.AustinKaylor.Templates.slnx")))
+            {
+                string snapshotsPath = Path.Combine(current.FullName, "tests", "Item.Tests", "Patterns", "Snapshots");
+                if (!Directory.Exists(snapshotsPath))
+                {
+                    throw new InvalidOperationException("Could not locate checked-in snapshots for builder template tests.");
+                }
+
+                return snapshotsPath;
+            }
+
+            current = current.Parent;
+        }
+
+        throw new InvalidOperationException("Could not locate repository root for builder template test snapshots.");
     }
 }
