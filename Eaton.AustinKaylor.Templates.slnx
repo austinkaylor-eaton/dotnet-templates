@@ -30,9 +30,11 @@
     <Folder Name="/templates/item/" />
     <Folder Name="/templates/item/patterns/" />
     <Folder Name="/templates/item/patterns/builder/">
+        <File Path="templates/item/patterns/builder/Entity.cs" />
+    </Folder>
+    <Folder Name="/templates/item/patterns/builder/.template.json/">
         <File Path="templates/item/patterns/builder/.template.config/dotnetcli.host.json" />
         <File Path="templates/item/patterns/builder/.template.config/template.json" />
-        <File Path="templates/item/patterns/builder/Entity.cs" />
     </Folder>
     <Folder Name="/templates/project/" />
 </Solution>
