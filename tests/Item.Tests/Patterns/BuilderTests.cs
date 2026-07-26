@@ -25,7 +25,7 @@ public class BuilderTests
             //VerifyCommandOutput = true,
             DisableDiffTool = true,
             OutputDirectory = testOutputDir,
-            //SnapshotsDirectory = Path.Combine(testOutputDir, "Snapshots")
+            SnapshotsDirectory = Path.Combine(testOutputDir, "Snapshots")
         };
 
         VerificationEngine engine = new(NullLogger.Instance);
@@ -44,7 +44,7 @@ public class BuilderTests
             //VerifyCommandOutput = true,
             OutputDirectory = testOutputDir,
             DisableDiffTool = true,
-            //SnapshotsDirectory = Path.Combine(testOutputDir, "Snapshots"),
+            SnapshotsDirectory = Path.Combine(testOutputDir, "Snapshots"),
             TemplateSpecificArgs =
             [
                 "--name", "Order",
@@ -81,13 +81,13 @@ public class BuilderTests
         string safeTestName = string.IsNullOrWhiteSpace(testName) ? "unknown-test" : testName;
         string testOutputPath = Path.Combine(RunOutputRoot, safeTestName);
 
-        if (Directory.Exists(testOutputPath))
-        {
-            Directory.Delete(testOutputPath, recursive: true);
-        }
+         if (Directory.Exists(testOutputPath))
+         {
+             Directory.Delete(testOutputPath, recursive: true);
+         }
 
-        Directory.CreateDirectory(testOutputPath);
-        return testOutputPath;
+         Directory.CreateDirectory(testOutputPath);
+         return testOutputPath;
     }
 
     /// <summary>
