@@ -11,6 +11,38 @@
   "description": "Creates a C# builder pattern example item.",
   "sourceName": "Eaton.AustinKaylor.Templates.Item.Patterns.Builder",
   "defaultName": "Entity",
+  "symbols": {
+    "Namespace": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "Eaton.AustinKaylor.Templates.Item.Patterns.Builder",
+      "description": "Namespace for the generated item.",
+      "replaces": "^Namespace^"
+    },
+    "ClassName": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "Entity",
+      "description": "Name of the generated class and output file.",
+      "replaces": "^ClassName^",
+      "fileRename": "Entity"
+    },
+    "BuilderPrefix": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "With",
+      "description": "Builder method prefix.",
+      "replaces": "^BuilderPrefix^",
+      "choices": [
+        {
+          "choice": "With"
+        },
+        {
+          "choice": "Set"
+        }
+      ]
+    }
+  },
   "tags": {
     "language": "C#",
     "type": "item"

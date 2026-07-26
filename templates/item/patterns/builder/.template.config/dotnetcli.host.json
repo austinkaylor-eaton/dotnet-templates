@@ -1,8 +1,27 @@
 {
   "$schema": "https://json.schemastore.org/dotnetcli.host",
   "usageExamples": [
-    "dotnet new eaton-builder --name OrderBuilder",
-    "dotnet new eaton-builder --name DeviceConfigurationBuilder"
+    "dotnet new eaton-ajk-patterns-builder --name Order --namespace My.App.Models",
+    "dotnet new eaton-ajk-patterns-builder --name Customer --namespace My.App.Models --class-name Customer --builder-prefix Set"
+  ],
+  "symbolInfo": [
+    {
+      "id": "Namespace",
+      "longName": "namespace",
+      "shortName": "ns",
+      "description": "Namespace for the generated item."
+    },
+    {
+      "id": "ClassName",
+      "longName": "class-name",
+      "shortName": "c",
+      "description": "Class name and output file name."
+    },
+    {
+      "id": "BuilderPrefix",
+      "longName": "builder-prefix",
+      "shortName": "bp",
+      "description": "Builder method prefix: With or Set."
+    }
   ]
 }
-

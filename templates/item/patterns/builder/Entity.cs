@@ -1,9 +1,9 @@
-namespace Eaton.AustinKaylor.Templates.Item.Patterns.Builder;
+namespace ^Namespace^;
 
 /// <summary>
 /// Represents the entity created by the builder pattern.
 /// </summary>
-public class Entity
+public class ^ClassName^
 {
     /// <summary>
     /// Gets the entity identifier.
@@ -15,20 +15,20 @@ public class Entity
     /// </summary>
     public string Name { get; }
 
-    private Entity(int id, string name)
+    private ^ClassName^(int id, string name)
     {
         Id = id;
         Name = name;
     }
 
     /// <summary>
-    /// Provides a fluent builder for <see cref="Entity"/>.
+    /// Provides a fluent builder for <see cref="^ClassName^"/>.
     /// </summary>
     /// <example>
     /// <code>
-    /// var entity = new Entity.Builder()
-    ///     .WithId(1)
-    ///     .WithName("Sample")
+    /// var entity = new ^ClassName^.Builder()
+    ///     .^BuilderPrefix^Id(1)
+    ///     .^BuilderPrefix^Name("Sample")
     ///     .Build();
     /// </code>
     /// </example>
@@ -42,7 +42,7 @@ public class Entity
         /// </summary>
         /// <param name="value">The identifier value.</param>
         /// <returns>The current builder instance.</returns>
-        public Builder WithId(int value)
+        public Builder ^BuilderPrefix^Id(int value)
         {
             id = value;
             return this;
@@ -53,35 +53,30 @@ public class Entity
         /// </summary>
         /// <param name="value">The name value.</param>
         /// <returns>The current builder instance.</returns>
-        public Builder WithName(string value)
+        public Builder ^BuilderPrefix^Name(string value)
         {
             name = value;
             return this;
         }
 
         /// <summary>
-        /// Builds an <see cref="Entity"/> with the configured values.
+        /// Builds an <see cref="^ClassName^"/> with the configured values.
         /// </summary>
-        /// <returns>A fully constructed <see cref="Entity"/>.</returns>
+        /// <returns>A fully constructed <see cref="^ClassName^"/>.</returns>
         /// <exception cref="InvalidOperationException">
         /// Thrown when required values are missing.
         /// </exception>
         /// <example>
         /// <code>
-        /// var entity = new Entity.Builder()
-        ///     .WithId(1)
-        ///     .WithName("Sample")
+        /// var entity = new ^ClassName^.Builder()
+        ///     .^BuilderPrefix^Id(1)
+        ///     .^BuilderPrefix^Name("Sample")
         ///     .Build();
         /// </code>
         /// </example>
-        public Entity Build()
+        public ^ClassName^ Build()
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new InvalidOperationException("Name must be provided before building.");
-            }
-
-            return new Entity(id, name);
+            return new ^ClassName^(id, name ?? string.Empty);
         }
     }
 }
