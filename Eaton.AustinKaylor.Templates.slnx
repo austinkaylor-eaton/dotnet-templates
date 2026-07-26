@@ -29,6 +29,7 @@
     <Folder Name="/templates/" />
     <Folder Name="/templates/item/">
         <File Path="templates/item/.template.config/template.json" />
+        <File Path="templates/item/Entity.cs" />
     </Folder>
     <Folder Name="/templates/project/" />
 </Solution>
