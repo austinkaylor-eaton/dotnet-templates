@@ -37,4 +37,5 @@
         <File Path="templates/item/patterns/builder/.template.config/template.json" />
     </Folder>
     <Folder Name="/templates/project/" />
+    <Folder Name="/tests/" />
 </Solution>
