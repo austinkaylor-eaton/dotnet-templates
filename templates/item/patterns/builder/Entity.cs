@@ -1,4 +1,4 @@
-namespace Eaton.AustinKaylor.Templates.Item;
+namespace Eaton.AustinKaylor.Templates.Item.Patterns.Builder;
 
 /// <summary>
 /// Represents the entity created by the builder pattern.

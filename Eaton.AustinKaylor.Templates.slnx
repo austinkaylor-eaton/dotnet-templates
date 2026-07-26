@@ -27,9 +27,8 @@
     </Folder>
     <Folder Name="/local_testing/" />
     <Folder Name="/templates/" />
-    <Folder Name="/templates/item/">
-        <File Path="templates/item/.template.config/template.json" />
-        <File Path="templates/item/Entity.cs" />
-    </Folder>
+    <Folder Name="/templates/item/" />
+    <Folder Name="/templates/item/patterns/" />
+    <Folder Name="/templates/item/patterns/builder/" />
     <Folder Name="/templates/project/" />
 </Solution>
