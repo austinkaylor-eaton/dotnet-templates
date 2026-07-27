@@ -4,7 +4,7 @@ This document explains how the automated changelog update system works.
 
 ## Overview
 
-When a pull request is merged to the `main` branch, the GitHub Actions workflow automatically extracts changelog entries from the PR body and appends them to the `CHANGELOG.md` file under the "Unreleased" section.
+When a pull request is merged to the `main` branch, the GitHub Actions workflow automatically extracts changelog entries from the PR body and inserts them under the `## Unreleased` heading in `CHANGELOG.md`.
 
 ## How It Works
 
@@ -34,7 +34,7 @@ The reviewer verifies the PR and changelog entries along with the code changes.
 
 ### Step 3: Workflow Triggers on Merge
 
-When the PR is merged, the `update-changelog` job in `.github/workflows/basic_ci.yml` automatically:
+When the PR is merged, the `update-changelog` job in `.github/workflows/basic_ci.yml` runs on `pull_request_target` (`closed`) and automatically:
 
 1. Checks out the repository with full history
 2. Extracts changelog sections from the PR body using markers:
@@ -46,7 +46,7 @@ When the PR is merged, the `update-changelog` job in `.github/workflows/basic_ci
 3. Runs the PowerShell script `automation/scripts/update-changelog-from-pr.ps1` which:
    - Parses bullet points from each section
    - Filters out empty entries and instructions
-   - Appends entries to the "Unreleased" section of `CHANGELOG.md`
+   - Inserts entries under the `## Unreleased` heading in `CHANGELOG.md`
 
 4. Commits the changes with message: `docs: update CHANGELOG.md from PR #123`
 5. Pushes the commit back to main
@@ -127,7 +127,7 @@ The workflow exits gracefully with no changes. This allows for PRs that don't re
 ⚠️  Warning: 'Unreleased' section not found in CHANGELOG.md. Skipping update.
 ```
 
-The workflow logs a warning. Ensure `CHANGELOG.md` contains the `## Unreleased` section.
+The workflow logs a warning and exits with a non-zero code. Ensure `CHANGELOG.md` contains the `## Unreleased` section.
 
 ## Permissions
 
@@ -167,7 +167,8 @@ If you see duplicate entries in CHANGELOG.md:
 
 1. Manually clean up the file
 2. Ensure the PR template markers are used correctly
-3. The script should prevent duplicates in future merges
+3. This script does not de-duplicate entries automatically, so avoid reusing the
+   same bullets across merged PRs
 
 ## Integration with Release Process
 
