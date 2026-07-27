@@ -14,31 +14,31 @@ a predictable way.
 
 ## Repository Layout
 
-| Path                          | Purpose                                             |
-|-------------------------------|-----------------------------------------------------|
-| `templates/`                  | Template source organized by template type          |
-| `tests/`                      | Unit tests organized by template type               |
-| `automation/scripts/`         | Validation, packaging, install, publish, and test scripts |
-| `automation/ci/`              | CI/CD pipeline definitions                          |
-| `artifacts/logs/`             | Validation and packaging logs                       |
-| `artifacts/nuget_packages/`   | Generated `.nupkg` outputs                          |
-| `artifacts/test-results/`     | TRX/HTML test reports (git-ignored)                 |
-| `local_testing/`              | Safe sandbox for generated template output          |
-| `docs/`                       | Canonical repository guidance                       |
+| Path                        | Purpose                                                   |
+|-----------------------------|-----------------------------------------------------------|
+| `templates/`                | Template source organized by template type                |
+| `tests/`                    | Unit tests organized by template type                     |
+| `automation/scripts/`       | Validation, packaging, install, publish, and test scripts |
+| `automation/ci/`            | CI/CD pipeline definitions                                |
+| `artifacts/logs/`           | Validation and packaging logs                             |
+| `artifacts/nuget_packages/` | Generated `.nupkg` outputs                                |
+| `artifacts/test-results/`   | TRX/HTML test reports (git-ignored)                       |
+| `local_testing/`            | Safe sandbox for generated template output                |
+| `docs/`                     | Canonical repository guidance                             |
 
 ## Documentation Map
 
 Use these documents as the primary entry points for working in the repository:
 
-| Document                     | Purpose                                                         |
-|------------------------------|-----------------------------------------------------------------|
-| `docs/architecture.md`       | Repository structure, system design, and document ownership     |
-| `docs/authoring-guide.md`    | How to create, configure, and test templates                    |
-| `docs/testing-guide.md`      | Running unit tests, filters, CI/CD reporting, and adding new test projects |
-| `docs/naming-conventions.md` | Identity, `shortName`, folder, symbol, and package naming rules |
-| `docs/release-process.md`    | Versioning, packaging, publishing, and release workflow         |
-| `docs/template-catalog.md`   | Template inventory and lifecycle status tracking                |
-| `tests/Item.Tests/README.md` | Test-runner setup and snapshot baseline update workflow         |
+| Document                                                 | Purpose                                                                    |
+|----------------------------------------------------------|----------------------------------------------------------------------------|
+| [docs/architecture.md](docs/architecture.md)             | Repository structure, system design, and document ownership                |
+| [docs/authoring-guide.md](docs/authoring-guide.md)       | How to create, configure, and test templates                               |
+| [docs/testing-guide.md](docs/testing-guide.md)           | Running unit tests, filters, CI/CD reporting, and adding new test projects |
+| [docs/naming-conventions.md](docs/naming-conventions.md) | Identity, `shortName`, folder, symbol, and package naming rules            |
+| [docs/release-process.md](docs/release-process.md)       | Versioning, packaging, publishing, and release workflow                    |
+| [docs/template-catalog.md](docs/template-catalog.md)     | Template inventory and lifecycle status tracking                           |
+| [tests/Item.Tests/README.md](tests/Item.Tests/README.md) | Test-runner setup and snapshot baseline update workflow                    |
 
 ## Expected Workflow
 
