@@ -26,7 +26,10 @@
         <File Path="docs/template-catalog.md" />
     </Folder>
     <Folder Name="/local_testing/" />
-    <Folder Name="/templates/" />
+    <Folder Name="/templates/">
+        <File Path="templates/Eaton.AustinKaylor.Templates.csproj" />
+        <File Path="templates/README.md" />
+    </Folder>
     <Folder Name="/templates/item/" />
     <Folder Name="/templates/item/patterns/" />
     <Folder Name="/templates/item/patterns/builder/">
