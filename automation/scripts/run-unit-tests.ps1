@@ -7,12 +7,12 @@
 #   .\run-unit-tests.ps1 -TemplateType item
 #   .\run-unit-tests.ps1 -TemplateType item,project -FailOnMissingProject
 #   .\run-unit-tests.ps1 -TemplateType item -Filter "FullyQualifiedName~Builder"
-#   .\run-unit-tests.ps1 -TemplateType item -RunnerArguments '--output','Detailed'
+#   .\run-unit-tests.ps1 -TemplateType item -RunnerArguments @('--output', 'Detailed')
 
 [CmdletBinding()]
 param(
     # Template test groups to run. Use 'all' to include item, project, and solution.
-    [ValidateSet('all', 'item', 'project', 'solution')]
+    [ValidateNotNullOrEmpty()]
     [string[]]$TemplateType = @('all'),
 
     # Fail when a selected template type has no corresponding test project.
@@ -23,7 +23,6 @@ param(
 
     # Additional arguments passed through to Microsoft.Testing.Platform/TUnit after '--'.
     [Alias('PassThroughArgs', 'MtpArguments')]
-    [Parameter(ValueFromRemainingArguments = $true)]
     [string[]]$RunnerArguments
 )
 
@@ -35,12 +34,33 @@ $ErrorActionPreference = 'Stop'
 function Resolve-SelectedTemplateTypes {
     param([string[]]$Requested)
 
+    $expanded = @(
+        foreach ($value in $Requested) {
+            if ([string]::IsNullOrWhiteSpace($value)) {
+                continue
+            }
+
+            foreach ($segment in $value.Split(',')) {
+                $trimmed = $segment.Trim()
+                if (-not [string]::IsNullOrWhiteSpace($trimmed)) {
+                    $trimmed
+                }
+            }
+        }
+    )
+
     $allTypes = @('item', 'project', 'solution')
-    if ($Requested -contains 'all') {
+    $allowed = @('all') + $allTypes
+    $invalid = @($expanded | Where-Object { $_ -notin $allowed } | Select-Object -Unique)
+    if ($invalid.Count -gt 0) {
+        throw "Invalid template type value(s): $($invalid -join ', '). Allowed values: all, item, project, solution."
+    }
+
+    if ($expanded -contains 'all') {
         return $allTypes
     }
 
-    return $Requested | Select-Object -Unique
+    return $expanded | Select-Object -Unique
 }
 
 function Get-TestProjectCandidates {
@@ -144,7 +164,6 @@ try {
             $projectName = [System.IO.Path]::GetFileNameWithoutExtension($projectPath)
             $projectResultsDir = Join-Path (Join-Path $resultsRoot $type) $projectName
 
-            New-Item -ItemType Directory -Path $projectResultsDir -Force | Out-Null
 
             Write-Step "[$type] $projectName"
 
@@ -161,12 +180,33 @@ try {
                 $mtpArgs += $runnerArgs
             }
 
-            $quotedProjectPath = $projectPath.Replace("'", "''")
-            $quotedMtpArgs = @($mtpArgs | ForEach-Object { "'" + $_.Replace("'", "''") + "'" })
-            $dotnetCommand = "dotnet test --project '$quotedProjectPath' -- $($quotedMtpArgs -join ' ')"
+            $projectPathForDotnet = [System.IO.Path]::GetRelativePath($repoRoot, $projectPath)
+            $resultsDirForDotnet = [System.IO.Path]::GetRelativePath($repoRoot, $projectResultsDir)
 
-            Write-Info $dotnetCommand
-            & pwsh -NoLogo -NoProfile -Command $dotnetCommand
+            $dotnetArgs = @(
+                'test',
+                '--project', $projectPathForDotnet,
+                '--'
+            )
+
+            $effectiveMtpArgs = @()
+            for ($i = 0; $i -lt $mtpArgs.Count; $i++) {
+                $arg = $mtpArgs[$i]
+
+                if ($arg -eq '--results-directory' -and $i + 1 -lt $mtpArgs.Count) {
+                    $effectiveMtpArgs += $arg
+                    $effectiveMtpArgs += $resultsDirForDotnet
+                    $i++
+                    continue
+                }
+
+                $effectiveMtpArgs += $arg
+            }
+
+            $dotnetArgs += $effectiveMtpArgs
+
+            Write-Info "dotnet $($dotnetArgs -join ' ')"
+            & dotnet @dotnetArgs
             $exitCode = $LASTEXITCODE
 
             if ($exitCode -eq 0) {
