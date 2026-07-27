@@ -44,9 +44,12 @@ Use these status values consistently:
 
 ## Current Catalog
 
-| short name                   | type | language | baseline/framework | status  | package version introduced |
-|------------------------------|------|----------|--------------------|---------|----------------------------|
-| _No templates published yet_ | -    | -        | -                  | `draft` | -                          |
+| short name                  | type   | language | baseline/framework | status  | package version introduced |
+|-----------------------------|--------|----------|--------------------|---------|----------------------------|
+| `eaton-ajk-patterns-builder` | `item` | `C#`     | `n/a`              | `draft` | -                          |
+
+`package version introduced` remains `-` until a published package version is
+verified in `CHANGELOG.md` or release records.
 
 ## Example Entries
 
