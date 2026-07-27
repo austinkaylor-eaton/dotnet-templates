@@ -10,15 +10,23 @@ discoverable for users, and consistent in `dotnet new list` output.
 - Avoid collisions between item, project, and solution templates
 - Make future automation simpler by using repeatable patterns
 
+## Current Repository Note
+
+The current checked-in template (`templates/item/patterns/builder/`) is a
+working template used by tests, but it does not fully match all conventions in
+this document yet (for example, nested folder location and `shortName`
+prefixing). Treat this document as the target standard for new templates and
+for future alignment work.
+
 ## Core Naming Rules
 
 | Concept                 | Convention                                            | Example                                              |
 |-------------------------|-------------------------------------------------------|------------------------------------------------------|
 | Template identity       | `Eaton.AustinKaylor.Templates.<Type>.<Name>.CSharp`   | `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp` |
-| Template short name     | `eaton-<name>`                                        | `eaton-webapi`                                       |
+| Template short name     | `eaton-ajk-<name>`                                    | `eaton-ajk-webapi`                                   |
 | Template group identity | `Eaton.AustinKaylor.Templates.<Type>.<Family>.CSharp` | `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp` |
 | NuGet package ID        | `Eaton.AustinKaylor.Templates`                        | `Eaton.AustinKaylor.Templates`                       |
-| Template folder name    | kebab-case                                            | `eaton-webapi`                                       |
+| Template folder name    | kebab-case                                            | `eaton-ajk-webapi`                                   |
 | Source project name     | PascalCase                                            | `Eaton.WebApi`                                       |
 | Symbols / parameters    | PascalCase keys, kebab-case CLI names                 | `ClassName` and `--class-name`                       |
 
@@ -66,7 +74,7 @@ The `shortName` is what users type with `dotnet new`.
 Pattern:
 
 ```text
-eaton-<name>
+eaton-ajk-<name>
 ```
 
 ### Rules
@@ -79,19 +87,19 @@ eaton-<name>
 
 ### Good Examples
 
-- `eaton-class`
-- `eaton-interface`
-- `eaton-webapi`
-- `eaton-console`
-- `eaton-monolith`
+- `eaton-ajk-class`
+- `eaton-ajk-interface`
+- `eaton-ajk-webapi`
+- `eaton-ajk-console`
+- `eaton-ajk-monolith`
 
 ### Avoid
 
 - `EatonClass`
-- `eaton_webapi`
+- `eaton_ajk_webapi`
 - `webapi-template`
-- `template-eaton-class`
-- `eaton-project-webapi` unless needed to avoid a collision
+- `template-eaton-ajk-class`
+- `eaton-ajk-project-webapi` unless needed to avoid a collision
 
 ### Guidance for Ambiguity
 
@@ -100,9 +108,9 @@ useful qualifier.
 
 Examples:
 
-- `eaton-webapi`
-- `eaton-webapi-auth`
-- `eaton-webapi-minimal`
+- `eaton-ajk-webapi`
+- `eaton-ajk-webapi-auth`
+- `eaton-ajk-webapi-minimal`
 
 ## Group Identity
 
@@ -182,11 +190,11 @@ Template folders should match the short name whenever practical.
 
 Patterns:
 
-- `templates/item/eaton-class/`
-- `templates/item/eaton-interface/`
-- `templates/project/eaton-webapi/`
-- `templates/project/eaton-console/`
-- `templates/solution/eaton-monolith/`
+- `templates/item/eaton-ajk-class/`
+- `templates/item/eaton-ajk-interface/`
+- `templates/project/eaton-ajk-webapi/`
+- `templates/project/eaton-ajk-console/`
+- `templates/solution/eaton-ajk-monolith/`
 
 ### Rules
 
@@ -197,16 +205,16 @@ Patterns:
 
 ### Good Examples
 
-- `eaton-class`
-- `eaton-webapi`
-- `eaton-monolith`
+- `eaton-ajk-class`
+- `eaton-ajk-webapi`
+- `eaton-ajk-monolith`
 
 ### Avoid
 
 - `EatonClass`
-- `eaton_webapi`
+- `eaton_ajk_webapi`
 - `web api`
-- `eaton-webapi-v2`
+- `eaton-ajk-webapi-v2`
 
 If a major redesign is needed, create a new template rather than hiding version
 semantics in the folder name.
@@ -360,11 +368,11 @@ it necessary.
 
 | Template Type | Folder                               | identity                                                | shortName         | name                      |
 |---------------|--------------------------------------|---------------------------------------------------------|-------------------|---------------------------|
-| Item          | `templates/item/eaton-class/`        | `Eaton.AustinKaylor.Templates.Item.Class.CSharp`        | `eaton-class`     | `Eaton Class`             |
-| Item          | `templates/item/eaton-interface/`    | `Eaton.AustinKaylor.Templates.Item.Interface.CSharp`    | `eaton-interface` | `Eaton Interface`         |
-| Project       | `templates/project/eaton-webapi/`    | `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp`    | `eaton-webapi`    | `Eaton Web API`           |
-| Project       | `templates/project/eaton-console/`   | `Eaton.AustinKaylor.Templates.Project.Console.CSharp`   | `eaton-console`   | `Eaton Console App`       |
-| Solution      | `templates/solution/eaton-monolith/` | `Eaton.AustinKaylor.Templates.Solution.Monolith.CSharp` | `eaton-monolith`  | `Eaton Monolith Solution` |
+| Item          | `templates/item/eaton-ajk-class/`        | `Eaton.AustinKaylor.Templates.Item.Class.CSharp`        | `eaton-ajk-class`     | `Eaton Class`             |
+| Item          | `templates/item/eaton-ajk-interface/`    | `Eaton.AustinKaylor.Templates.Item.Interface.CSharp`    | `eaton-ajk-interface` | `Eaton Interface`         |
+| Project       | `templates/project/eaton-ajk-webapi/`    | `Eaton.AustinKaylor.Templates.Project.WebApi.CSharp`    | `eaton-ajk-webapi`    | `Eaton Web API`           |
+| Project       | `templates/project/eaton-ajk-console/`   | `Eaton.AustinKaylor.Templates.Project.Console.CSharp`   | `eaton-ajk-console`   | `Eaton Console App`       |
+| Solution      | `templates/solution/eaton-ajk-monolith/` | `Eaton.AustinKaylor.Templates.Solution.Monolith.CSharp` | `eaton-ajk-monolith`  | `Eaton Monolith Solution` |
 
 ## Example `template.json`
 
@@ -375,7 +383,7 @@ it necessary.
   "name": "Eaton Web API",
   "identity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
   "groupIdentity": "Eaton.AustinKaylor.Templates.Project.WebApi.CSharp",
-  "shortName": "eaton-webapi",
+  "shortName": "eaton-ajk-webapi",
   "description": "Creates a minimal ASP.NET Core Web API with health checks.",
   "classifications": [
     "Web",
@@ -394,7 +402,7 @@ it necessary.
 Before publishing a new template, verify the following:
 
 - [ ] `identity` uses `Eaton.AustinKaylor.Templates.<Type>.<Name>.CSharp`
-- [ ] `shortName` is lowercase kebab-case and starts with `eaton-`
+- [ ] `shortName` is lowercase kebab-case and starts with `eaton-ajk-`
 - [ ] `groupIdentity` matches the template family
 - [ ] `name` is human-readable and uses title case
 - [ ] Folder name aligns with `shortName`
@@ -409,7 +417,7 @@ Before publishing a new template, verify the following:
 Use these defaults unless there is a strong reason not to:
 
 - **identity:** `Eaton.AustinKaylor.Templates.<Type>.<Name>.CSharp`
-- **shortName:** `eaton-<name>`
+- **shortName:** `eaton-ajk-<name>`
 - **groupIdentity:** `Eaton.AustinKaylor.Templates.<Type>.<Family>.CSharp`
 - **package ID:** `Eaton.AustinKaylor.Templates`
 - **folder name:** match `shortName`
