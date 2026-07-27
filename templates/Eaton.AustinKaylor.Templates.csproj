@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <Content Include=".\**\*" Exclude=".\**\bin\**;.\**\obj\**" />
+    <Content Include=".\item\patterns\**\*" Exclude=".\item\patterns\**\bin\**;.\item\patterns\**\obj\**" />
     <Compile Remove="**\*" />
   </ItemGroup>
 
