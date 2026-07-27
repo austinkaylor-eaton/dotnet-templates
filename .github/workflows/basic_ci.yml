@@ -93,11 +93,8 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Extract and update changelog
-        env:
-          PR_BODY: ${{ github.event.pull_request.body }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          pwsh -File "${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1" -PrBody $env:PR_BODY -PrNumber $env:PR_NUMBER
+          pwsh -File "${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1" -PrBody ${{ github.event.pull_request.body }} -PrNumber ${{ github.event.pull_request.number }}
 
       - name: Commit changelog updates
         run: |
