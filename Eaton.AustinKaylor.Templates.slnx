@@ -1,5 +1,7 @@
 <Solution>
-    <Folder Name="/.github/" />
+    <Folder Name="/.github/">
+        <File Path=".github/pull_request_template.md" />
+    </Folder>
     <Folder Name="/.github/prompts/">
         <File Path=".github/prompts/update-docs.prompt.md" />
     </Folder>
