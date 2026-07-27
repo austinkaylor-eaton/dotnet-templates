@@ -14,15 +14,17 @@ a predictable way.
 
 ## Repository Layout
 
-| Path                        | Purpose                                             |
-|-----------------------------|-----------------------------------------------------|
-| `templates/`                | Template source organized by template type          |
-| `automation/scripts/`       | Validation, packaging, install, and publish scripts |
-| `automation/ci/`            | CI/CD pipeline definitions                          |
-| `artifacts/logs/`           | Validation and packaging logs                       |
-| `artifacts/nuget_packages/` | Generated `.nupkg` outputs                          |
-| `local_testing/`            | Safe sandbox for generated template output          |
-| `docs/`                     | Canonical repository guidance                       |
+| Path                          | Purpose                                             |
+|-------------------------------|-----------------------------------------------------|
+| `templates/`                  | Template source organized by template type          |
+| `tests/`                      | Unit tests organized by template type               |
+| `automation/scripts/`         | Validation, packaging, install, publish, and test scripts |
+| `automation/ci/`              | CI/CD pipeline definitions                          |
+| `artifacts/logs/`             | Validation and packaging logs                       |
+| `artifacts/nuget_packages/`   | Generated `.nupkg` outputs                          |
+| `artifacts/test-results/`     | TRX/HTML test reports (git-ignored)                 |
+| `local_testing/`              | Safe sandbox for generated template output          |
+| `docs/`                       | Canonical repository guidance                       |
 
 ## Documentation Map
 
@@ -32,6 +34,7 @@ Use these documents as the primary entry points for working in the repository:
 |------------------------------|-----------------------------------------------------------------|
 | `docs/architecture.md`       | Repository structure, system design, and document ownership     |
 | `docs/authoring-guide.md`    | How to create, configure, and test templates                    |
+| `docs/testing-guide.md`      | Running unit tests, filters, CI/CD reporting, and adding new test projects |
 | `docs/naming-conventions.md` | Identity, `shortName`, folder, symbol, and package naming rules |
 | `docs/release-process.md`    | Versioning, packaging, publishing, and release workflow         |
 | `docs/template-catalog.md`   | Template inventory and lifecycle status tracking                |
@@ -65,8 +68,19 @@ This folder is git-ignored so you can safely:
 The repository structure and documentation are in place.
 
 Automation scripts in `automation/scripts/` cover install, uninstall, validate,
-pack, and publish. A shared helpers module lives at
+pack, publish, and unit test execution. A shared helpers module lives at
 `automation/scripts/shared.ps1`.
+
+Key scripts:
+
+| Script                    | Purpose                                           |
+|---------------------------|---------------------------------------------------|
+| `validate-templates.ps1`  | JSON validation and generate-and-build checks     |
+| `run-unit-tests.ps1`      | Execute template unit tests with TUnit/MTP        |
+| `install-local.ps1`       | Install templates from source into local cache    |
+| `uninstall-local.ps1`     | Remove locally installed templates                |
+| `pack-templates.ps1`      | Package templates into a `.nupkg`                 |
+| `publish-templates.ps1`   | Publish template pack to NuGet                    |
 
 ## Reference Material
 
