@@ -16,6 +16,12 @@ public class BuilderTests
     private static readonly string RunOutputRoot = CreateRunOutputRoot();
     private static readonly string BaselineSnapshotsRoot = ResolveBaselineSnapshotsPath();
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with the following values: <br/>
+    /// <c>Namespace</c>: default <br/>
+    /// <c>ClassName</c>: default <br/>
+    /// <c>BuilderPrefix</c>: With
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_DefaultInstantiationTest()
     {
@@ -24,6 +30,12 @@ public class BuilderTests
         await engine.Execute(options).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with custom namespace, class name, and builder prefix arguments. <br/>
+    /// <c>Namespace</c>: My.App.Models <br/>
+    /// <c>ClassName</c>: Order <br/>
+    /// <c>BuilderPrefix</c>: Set
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_CustomArgsInstantiationTest()
     {
@@ -37,6 +49,12 @@ public class BuilderTests
         await engine.Execute(options).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with default namespace and class name, but a custom builder prefix argument. <br/>
+    /// <c>Namespace</c>: default <br/>
+    /// <c>ClassName</c>: default <br/>
+    /// <c>BuilderPrefix</c>: Set
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_DefaultNamespaceDefaultClassSetPrefixInstantiationTest()
     {
@@ -48,6 +66,12 @@ public class BuilderTests
         await engine.Execute(options).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with default namespace and class name, but a custom builder prefix argument. <br/>
+    /// <c>Namespace</c>: default <br/>
+    /// <c>ClassName</c>: Order <br/>
+    /// <c>BuilderPrefix</c>: Set
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_DefaultNamespaceCustomClassWithPrefixInstantiationTest()
     {
@@ -59,6 +83,12 @@ public class BuilderTests
         await engine.Execute(options).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with default namespace and class name, but a custom builder prefix argument. <br/>
+    /// <c>Namespace</c>: default <br/>
+    /// <c>ClassName</c>: Order <br/>
+    /// <c>BuilderPrefix</c>: Set
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_DefaultNamespaceCustomClassSetPrefixInstantiationTest()
     {
@@ -71,6 +101,12 @@ public class BuilderTests
         await engine.Execute(options).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with default namespace and class name, but a custom builder prefix argument. <br/>
+    /// <c>Namespace</c>: default <br/>
+    /// <c>ClassName</c>: default <br/>
+    /// <c>BuilderPrefix</c>: Set
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_CustomNamespaceDefaultClassWithPrefixInstantiationTest()
     {
@@ -82,6 +118,12 @@ public class BuilderTests
         await engine.Execute(options).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with default namespace and class name, but a custom builder prefix argument. <br/>
+    /// <c>Namespace</c>: My.App.Models <br/>
+    /// <c>ClassName</c>: default <br/>
+    /// <c>BuilderPrefix</c>: Set
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_CustomNamespaceDefaultClassSetPrefixInstantiationTest()
     {
@@ -94,6 +136,12 @@ public class BuilderTests
         await engine.Execute(options).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Tests the Builder Pattern Item Template with default namespace and class name, but a custom builder prefix argument. <br/>
+    /// <c>Namespace</c>: My.App.Models <br/>
+    /// <c>ClassName</c>: Order <br/>
+    /// <c>BuilderPrefix</c>: With
+    /// </summary>
     [Test]
     public async Task BuilderTemplate_CustomNamespaceCustomClassWithPrefixInstantiationTest()
     {
