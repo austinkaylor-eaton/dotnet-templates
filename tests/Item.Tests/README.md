@@ -1,5 +1,9 @@
 # Item.Tests
 
+## About
+This project contains unit tests for the **Item** template, including snapshot tests for the builder pattern. The tests are written using **TUnit** and utilize **Microsoft.Testing.Platform** for test execution. 
+
+Each test scenario generates output files that are compared against verified snapshots to ensure template correctness. Every test utilizes the [Templates Testing Tooling API](https://github.com/dotnet/templating/wiki/Templates-Testing-Tooling#api).
 ## .NET 10 Test Runner Configuration
 
 This test project targets **.NET 10** and uses **Microsoft.Testing.Platform** for the testing runtime, along with **TUnit** as the test framework.
