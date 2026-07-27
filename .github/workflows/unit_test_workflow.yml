@@ -17,7 +17,3 @@ jobs:
       - name: Run Tests with Collapsible Reporter
         run: dotnet test -- --output Detailed
         # GitHub reporter auto-detects and uses collapsible style by default
-
-      - name: Run Tests with Full Reporter
-        run: dotnet test -- --github-reporter-style full
-        # Explicitly use full style for all details
