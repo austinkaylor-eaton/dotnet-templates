@@ -14,15 +14,17 @@ a predictable way.
 
 ## Repository Layout
 
-| Path                        | Purpose                                             |
-|-----------------------------|-----------------------------------------------------|
-| `templates/`                | Template source organized by template type          |
-| `automation/scripts/`       | Validation, packaging, install, and publish scripts |
-| `automation/ci/`            | CI/CD pipeline definitions                          |
-| `artifacts/logs/`           | Validation and packaging logs                       |
-| `artifacts/nuget_packages/` | Generated `.nupkg` outputs                          |
-| `local_testing/`            | Safe sandbox for generated template output          |
-| `docs/`                     | Canonical repository guidance                       |
+| Path                          | Purpose                                             |
+|-------------------------------|-----------------------------------------------------|
+| `templates/`                  | Template source organized by template type          |
+| `tests/`                      | Unit tests organized by template type               |
+| `automation/scripts/`         | Validation, packaging, install, publish, and test scripts |
+| `automation/ci/`              | CI/CD pipeline definitions                          |
+| `artifacts/logs/`             | Validation and packaging logs                       |
+| `artifacts/nuget_packages/`   | Generated `.nupkg` outputs                          |
+| `artifacts/test-results/`     | TRX/HTML test reports (git-ignored)                 |
+| `local_testing/`              | Safe sandbox for generated template output          |
+| `docs/`                       | Canonical repository guidance                       |
 
 ## Documentation Map
 
@@ -32,9 +34,11 @@ Use these documents as the primary entry points for working in the repository:
 |------------------------------|-----------------------------------------------------------------|
 | `docs/architecture.md`       | Repository structure, system design, and document ownership     |
 | `docs/authoring-guide.md`    | How to create, configure, and test templates                    |
+| `docs/testing-guide.md`      | Running unit tests, filters, CI/CD reporting, and adding new test projects |
 | `docs/naming-conventions.md` | Identity, `shortName`, folder, symbol, and package naming rules |
 | `docs/release-process.md`    | Versioning, packaging, publishing, and release workflow         |
 | `docs/template-catalog.md`   | Template inventory and lifecycle status tracking                |
+| `tests/Item.Tests/README.md` | Test-runner setup and snapshot baseline update workflow         |
 
 ## Expected Workflow
 
@@ -64,8 +68,19 @@ This folder is git-ignored so you can safely:
 The repository structure and documentation are in place.
 
 Automation scripts in `automation/scripts/` cover install, uninstall, validate,
-pack, and publish. A shared helpers module lives at
+pack, publish, and unit test execution. A shared helpers module lives at
 `automation/scripts/shared.ps1`.
+
+Key scripts:
+
+| Script                    | Purpose                                           |
+|---------------------------|---------------------------------------------------|
+| `validate-templates.ps1`  | JSON validation and generate-and-build checks     |
+| `run-unit-tests.ps1`      | Execute template unit tests with TUnit/MTP        |
+| `install-local.ps1`       | Install templates from source into local cache    |
+| `uninstall-local.ps1`     | Remove locally installed templates                |
+| `pack-templates.ps1`      | Package templates into a `.nupkg`                 |
+| `publish-templates.ps1`   | Publish template pack to NuGet                    |
 
 ## Reference Material
 
@@ -73,9 +88,10 @@ pack, and publish. A shared helpers module lives at
 - [How to create your own template for dotnet new](https://devblogs.microsoft.com/dotnet/how-to-create-your-own-templates-for-dotnet-new/)
 - [Microsoft Learn Tutorial: Create an item template](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-item)
 - [Microsoft Learn Tutorial: Create a project template](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-project)
-- [Microsoft Learn Tutorial: Create a template pack](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-template-pack)
+- [Microsoft Learn Tutorial: Create a template package](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-template-package)
 - [dotnet template samples repository](https://github.com/dotnet/templating/tree/main/dotnet-template-samples)
 - [dotnet/templating wiki](https://github.com/dotnet/templating/wiki)
 - [Template sample for Visual Studio integration](https://github.com/sayedihashimi/template-sample)
 - [dotnet SDK item templates](https://github.com/dotnet/sdk/tree/main/template_feed/Microsoft.DotNet.Common.ItemTemplates/content)
 - [dotnet SDK project templates](https://github.com/dotnet/sdk/tree/main/template_feed/Microsoft.DotNet.Common.ProjectTemplates.11.0/content)
+- [Pack a template into a NuGet package (nupkg file)](https://learn.microsoft.com/en-us/dotnet/core/tools/custom-templates#pack-a-template-into-a-nuget-package-nupkg-file)

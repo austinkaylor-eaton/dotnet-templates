@@ -139,39 +139,60 @@ function Write-Failure([string]$Message) {
 function Get-AllTemplates {
     $templatesRoot = Get-TemplatesRoot
     $results = @()
+    $knownTypes = @('item', 'project', 'solution')
+    $seenRoots = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 
-    foreach ($type in @('item', 'project', 'solution')) {
-        $typePath = Join-Path $templatesRoot $type
-        if (-not (Test-Path $typePath)) { continue }
+    $templateJsonFiles = Get-ChildItem -Path $templatesRoot -Recurse -File -Filter 'template.json' -ErrorAction SilentlyContinue
 
-        foreach ($templateDir in Get-ChildItem -Path $typePath -Directory) {
-            $srcPath   = Join-Path $templateDir.FullName 'src'
-            $configPath = Join-Path $srcPath '.template.config\template.json'
+    foreach ($templateJson in $templateJsonFiles) {
+        $configDir = Split-Path -Parent $templateJson.FullName
+        if ((Split-Path -Leaf $configDir) -ne '.template.config') {
+            continue
+        }
 
-            if (-not (Test-Path $configPath)) {
-                Write-Warn "Skipping '$($templateDir.Name)': no src/.template.config/template.json found."
-                continue
-            }
+        $templateRoot = Split-Path -Parent $configDir
+        if (-not $templateRoot) {
+            continue
+        }
 
-            try {
-                $config = Get-Content $configPath -Raw | ConvertFrom-Json
-            }
-            catch {
-                Write-Warn "Skipping '$($templateDir.Name)': template.json could not be parsed."
-                continue
-            }
+        $relativeRoot = $templateRoot.Substring($templatesRoot.Length).TrimStart('\', '/')
+        if ([string]::IsNullOrWhiteSpace($relativeRoot)) {
+            continue
+        }
 
-            $results += [PSCustomObject]@{
-                SrcPath   = $srcPath
-                Type      = $type
-                Name      = $config.name
-                Identity  = $config.identity
-                ShortName = $config.shortName
-            }
+        $segments = $relativeRoot -split '[\\/]'
+        $type = $segments[0].ToLowerInvariant()
+        if ($type -notin $knownTypes) {
+            continue
+        }
+
+        if ($segments -contains 'bin' -or $segments -contains 'obj') {
+            continue
+        }
+
+        try {
+            $normalizedRoot = (Resolve-Path $templateRoot).Path
+            $config = Get-Content $templateJson.FullName -Raw | ConvertFrom-Json
+        }
+        catch {
+            Write-Warn "Skipping '$templateRoot': template.json could not be parsed."
+            continue
+        }
+
+        if (-not $seenRoots.Add($normalizedRoot)) {
+            continue
+        }
+
+        $results += [PSCustomObject]@{
+            SrcPath   = $normalizedRoot
+            Type      = $type
+            Name      = $config.name
+            Identity  = $config.identity
+            ShortName = $config.shortName
         }
     }
 
-    return $results
+    return $results | Sort-Object Type, ShortName
 }
 
 # ---------------------------------------------------------------------------

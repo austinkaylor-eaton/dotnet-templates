@@ -6,11 +6,12 @@ This repository manages a collection of `dotnet new` templates organized by type
 
 The repository follows a **template-centric, lifecycle-driven** model:
 
-- **Templates** are self-contained units stored in `templates/` with configuration and tests
+- **Templates** are self-contained template units stored in `templates/`
 - **Automation** (`automation/`) handles validation, packaging, and distribution
 - **Artifacts** (`artifacts/`) stores compiled packages and logs
 - **Documentation** (`docs/`) explains conventions, authoring patterns, and the catalog
 - **Local testing** (`local_testing/`) provides an isolated sandbox for template development
+- **Tests** (`tests/`) provide unit and integration tests of templates, with a separate test project for each type (item, project, solution)
 
 ```
 ┌─────────────────────────────────────────┐
@@ -42,28 +43,17 @@ The repository follows a **template-centric, lifecycle-driven** model:
 
 ### `/templates` — Template Sources
 
-Home for all template source code, organized by lifecycle stage and type:
+Home for template source code.
 
-#### `templates/item/`
-Item templates (files that inject into existing projects):
-- `templates/item/<name>/src/` — Template source files
-- `templates/item/<name>/src/.template.config/` — Metadata (`template.json`)
-- `templates/item/<name>/tests/` — Validation tests (smoke, snapshot)
-- `templates/item/<name>/README.md` — Usage, parameters, examples
+Current repository state:
 
-**Example:** `eaton-class/` generates a new C# class with comments.
+- `templates/item/patterns/builder/` — item template root
+  - `.template.config/` — template metadata (`template.json`, `dotnetcli.host.json`)
+  - `Entity.cs` — template content
+- `templates/project/` — reserved for future project templates
+- `templates/content/` — package content support files
 
-#### `templates/project/`
-Project templates (generate new `.csproj` + associated files):
-- `templates/project/<name>/src/` — Full project structure
-- `templates/project/<name>/src/.template.config/` — Metadata
-- `templates/project/<name>/tests/` — Build/restore verification
-- `templates/project/<name>/README.md` — Usage guide
-
-**Example:** `eaton-webapi/` scaffolds an ASP.NET Core minimal API project.
-
-#### `templates/solution/` (future)
-Solution templates (generate `.sln` + multi-project structure).
+The packaging project remains `templates/Eaton.AustinKaylor.Templates.csproj`.
 
 ### `/automation` — Engineering & Automation
 
@@ -72,15 +62,14 @@ Tooling and CI/CD pipelines:
 - **`automation/scripts/`** — PowerShell utilities
   - `install-local.ps1` — Install templates from source to local cache
   - `uninstall-local.ps1` — Remove locally installed templates
-  - `validate-templates.ps1` — Smoke-test all templates (generate, build, restore)
+  - `validate-templates.ps1` — Smoke-test templates discovered by script conventions
   - `pack-templates.ps1` — Create NuGet package (`.nupkg`)
   - `publish-templates.ps1` — Push to NuGet feed
-  - `Directory.Build.props` — Shared project configuration
-  - `version.json` — Version definition for all templates
+  - `shared.ps1` — Shared helper functions used by all automation scripts
 
-- **`automation/ci/`** — Continuous integration pipelines
-  - GitHub Actions workflows, Azure Pipelines, etc.
-  - Triggered on PR/push to validate, pack, and optionally publish
+- **CI workflow location** — `.github/workflows/basic_ci.yml`
+  - Current automation focuses on changelog updates after merged PRs
+  - Validation, packing, and publishing are currently script-driven/manual
 
 ### `/artifacts` — Build Outputs
 
@@ -96,6 +85,7 @@ Non-source artifacts:
 - [naming-conventions.md](naming-conventions.md) — Identity, `shortName`, package name rules
 - [authoring-guide.md](authoring-guide.md) — How to create a new template
 - [release-process.md](release-process.md) — Version, tag, package, publish workflow
+- [changelog-automation.md](changelog-automation.md) — PR-driven changelog update flow
 - [architecture.md](architecture.md) — This file
 
 ### `/local_testing` — Sandbox
@@ -120,30 +110,23 @@ Use this to:
 Each template follows a predictable structure:
 
 ```
-templates/item/eaton-class/
-  ├── src/
-  │   ├── .template.config/
-  │   │   ├── template.json         ← Metadata, symbols, hooks
-  │   │   └── dotnetcli.host.json   ← CLI hosting config
-  │   ├── Class.cs                  ← Template source (uses symbols)
-  │   └── _readme.md                ← Optional: visible after template runs
-  ├── tests/
-  │   ├── smoke/                    ← Basic generation + build test
-  │   └── snapshot/                 ← Output comparison tests
-  └── README.md                      ← Authoring guide for this template
+templates/item/patterns/builder/
+  ├── .template.config/
+  │   ├── template.json         ← Metadata, symbols, tags
+  │   └── dotnetcli.host.json   ← CLI parameter mapping and examples
+  └── Entity.cs                 ← Template source (uses symbols)
 ```
 
 ### Key Files
 
 **`template.json`**
-- `identity`: Unique full name (`Eaton.AustinKaylor.Templates.Item.Class.CSharp`)
-- `shortName`: CLI-friendly name (`eaton-class`)
+- `identity`: Unique full name (`Eaton.AustinKaylor.Templates.Item.Patterns.Builder.CSharp`)
+- `shortName`: CLI-friendly name (`eaton-ajk-patterns-builder`)
 - `name`: Display name
 - `description`: What the template does
 - `author`: Creator
-- `baselines`: Target frameworks (`.NET 8`, `.NET 9`, etc.)
 - `symbols`: Parameters users can customize
-- `postActions`: Commands to run after generation (e.g., `dotnet restore`)
+- `tags`: Template language/type metadata used by `dotnet new`
 
 **`dotnetcli.host.json`**
 - `symbolInfo`: Friendly names and prompts for `dotnet new` CLI
@@ -161,14 +144,14 @@ Example:
 namespace ^Namespace^;
 
 /// <summary>
-/// ^Description^
+/// Represents the entity created by the builder pattern.
 /// </summary>
 public class ^ClassName^
 {
 }
 ```
 
-When a user runs `dotnet new eaton-class --namespace My.App --class-name User --description "User entity"`, the symbols get replaced.
+When a user runs `dotnet new eaton-ajk-patterns-builder --name Order --namespace My.App.Models`, the symbols get replaced.
 
 ## Template Lifecycle
 
@@ -198,22 +181,18 @@ documents as the canonical home for operational detail:
 
 ## CI/CD Pipeline
 
-Triggered on every commit to `main`:
+Current automated workflow:
 
-1. **Validation** — Run `validate-templates.ps1`
-   - Check template.json syntax
-   - Generate test projects
-   - Verify builds succeed
-   - Report failures
+1. **Changelog update on merge**
+   - Implemented in `.github/workflows/basic_ci.yml`
+   - Runs `automation/scripts/update-changelog-from-pr.ps1`
+   - Commits `CHANGELOG.md` updates when changelog markers are present in the PR body
 
-2. **Packaging** — Run `pack-templates.ps1`
-   - Embed version from `automation/version.json`
-   - Create `.nupkg` in `artifacts/nuget_packages/`
+Current manual/scripted workflow:
 
-3. **Publishing** (manual or scheduled)
-   - Push `.nupkg` to NuGet or internal feed
-   - Tag repository
-   - Update GitHub releases
+2. **Validation** — Run `automation/scripts/validate-templates.ps1`
+3. **Packaging** — Run `automation/scripts/pack-templates.ps1`
+4. **Publishing** — Run `automation/scripts/publish-templates.ps1`
 
 ## Key Design Decisions
 

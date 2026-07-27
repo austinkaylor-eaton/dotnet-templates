@@ -14,18 +14,20 @@ auditable, and easy to automate as the repository grows.
 
 ## Current Repository State
 
-The repository already contains the release-related folders used by the planned
-workflow:
+The repository currently contains the following release-related paths:
 
-- `automation/ci/`
 - `automation/scripts/`
 - `artifacts/logs/`
 - `artifacts/nuget_packages/`
 - `local_testing/`
+- `.github/workflows/basic_ci.yml`
 
-The scripts in `automation/scripts/` implement the workflow described in this
-document. See the script file headers for parameter documentation and usage
-examples.
+The scripts in `automation/scripts/` implement install, validation, pack, and
+publish steps. Current GitHub Actions automation in this repo is focused on
+changelog updates after merged PRs.
+
+Before release validation, verify each template is laid out in a structure that
+the automation scripts can discover (`templates/<type>/<template>/src/.template.config/template.json`).
 
 ## Release Artifacts
 
@@ -329,7 +331,7 @@ include:
 
 As automation is added, the CI/CD workflow should enforce these stages:
 
-### Validation Stage
+### Validation Stage (recommended)
 
 - Verify JSON syntax and schema compliance
 - Install templates locally in a clean environment
@@ -337,13 +339,13 @@ As automation is added, the CI/CD workflow should enforce these stages:
 - Restore and build generated projects
 - Save logs to `artifacts/logs/`
 
-### Packaging Stage
+### Packaging Stage (recommended)
 
 - Build the `.nupkg`
 - Stamp the correct version
 - Publish build artifacts for review
 
-### Publishing Stage
+### Publishing Stage (recommended)
 
 - Publish only from protected branches or approved tags
 - Require a successful validation and packaging stage first

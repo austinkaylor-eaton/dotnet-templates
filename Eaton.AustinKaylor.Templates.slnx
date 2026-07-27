@@ -1,11 +1,15 @@
 <Solution>
     <Folder Name="/.github/" />
+    <Folder Name="/.github/prompts/">
+        <File Path=".github/prompts/update-docs.prompt.md" />
+    </Folder>
     <Folder Name="/.github/workflows/">
         <File Path=".github/workflows/basic_ci.yml" />
     </Folder>
     <Folder Name="/artifacts/" />
     <Folder Name="/artifacts/logs/" />
     <Folder Name="/artifacts/nuget_packages/" />
+    <Folder Name="/artifacts/test-results/" />
     <Folder Name="/automation/" />
     <Folder Name="/automation/scripts/">
         <File Path="automation/scripts/add-gitkeep-to-every-repo-folder.ps1" />
@@ -14,19 +18,37 @@
         <File Path="automation/scripts/pack-templates.ps1" />
         <File Path="automation/scripts/publish-templates.ps1" />
         <File Path="automation/scripts/run-spectral-lint.ps1" />
+        <File Path="automation/scripts/run-unit-tests.ps1" />
         <File Path="automation/scripts/shared.ps1" />
         <File Path="automation/scripts/uninstall-local.ps1" />
+        <File Path="automation/scripts/update-changelog-from-pr.ps1" />
         <File Path="automation/scripts/validate-templates.ps1" />
     </Folder>
     <Folder Name="/docs/">
         <File Path="docs/architecture.md" />
         <File Path="docs/authoring-guide.md" />
+        <File Path="docs/changelog-automation.md" />
         <File Path="docs/naming-conventions.md" />
         <File Path="docs/release-process.md" />
         <File Path="docs/template-catalog.md" />
+        <File Path="docs/testing-guide.md" />
     </Folder>
     <Folder Name="/local_testing/" />
-    <Folder Name="/templates/" />
+    <Folder Name="/templates/">
+        <File Path="templates/Eaton.AustinKaylor.Templates.csproj" />
+        <File Path="templates/README.md" />
+    </Folder>
     <Folder Name="/templates/item/" />
+    <Folder Name="/templates/item/patterns/" />
+    <Folder Name="/templates/item/patterns/builder/">
+        <File Path="templates/item/patterns/builder/Entity.cs" />
+    </Folder>
+    <Folder Name="/templates/item/patterns/builder/.template.json/">
+        <File Path="templates/item/patterns/builder/.template.config/dotnetcli.host.json" />
+        <File Path="templates/item/patterns/builder/.template.config/template.json" />
+    </Folder>
     <Folder Name="/templates/project/" />
+    <Folder Name="/tests/">
+        <Project Path="tests/Item.Tests/Item.Tests.csproj" />
+    </Folder>
 </Solution>
