@@ -35,6 +35,7 @@ Use these documents as the primary entry points for working in the repository:
 | `docs/naming-conventions.md` | Identity, `shortName`, folder, symbol, and package naming rules |
 | `docs/release-process.md`    | Versioning, packaging, publishing, and release workflow         |
 | `docs/template-catalog.md`   | Template inventory and lifecycle status tracking                |
+| `tests/Item.Tests/README.md` | Test-runner setup and snapshot baseline update workflow         |
 
 ## Expected Workflow
 
