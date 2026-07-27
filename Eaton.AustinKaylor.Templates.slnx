@@ -29,6 +29,7 @@
         <File Path="docs/naming-conventions.md" />
         <File Path="docs/release-process.md" />
         <File Path="docs/template-catalog.md" />
+        <File Path="docs/testing-guide.md" />
     </Folder>
     <Folder Name="/local_testing/" />
     <Folder Name="/templates/">
