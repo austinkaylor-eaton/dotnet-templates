@@ -38,3 +38,57 @@ For more details on Microsoft.Testing.Platform, see:
 - [Microsoft.Testing.Platform Documentation](https://aka.ms/testingplatform)
 - [dotnet test Migration Guide](https://aka.ms/dotnet-test)
 
+## Updating Snapshot Baselines
+
+When template output changes (or when `TemplateVerifierOptions` naming flags change),
+the existing snapshot baselines can fail to match expected paths and content.
+
+Use this workflow to regenerate and commit snapshots safely.
+
+### 1) Run tests once to capture the expected snapshot names
+
+```powershell
+dotnet test --project tests/Item.Tests/Item.Tests.csproj -v normal
+```
+
+If snapshots are out of date, test failures include lines similar to:
+
+- `Received: <name>.received\...`
+- `Verified: <name>.verified\...`
+
+Use these names exactly when creating or updating files under:
+`tests/Item.Tests/Patterns/Snapshots/`.
+
+### 2) Promote received output to verified baseline
+
+For each failing snapshot:
+
+1. Copy file content from the generated `*.received` path in `local_testing/...`
+2. Create or update the matching `*.verified` file under
+   `tests/Item.Tests/Patterns/Snapshots/`
+3. Keep file content and newline style identical
+
+### 3) Re-run tests until green
+
+```powershell
+dotnet test --project tests/Item.Tests/Item.Tests.csproj -v normal
+```
+
+### 4) Commit only stable baselines
+
+Commit:
+
+- updated test code (if any)
+- updated files under `tests/Item.Tests/Patterns/Snapshots/`
+
+Do not commit `local_testing/` output.
+
+### Common Failure Patterns
+
+- **`New:`** Missing `*.verified` baseline for the expected scenario name
+- **`NotEqual` near `[EOF]`:** Usually trailing newline mismatch only
+- **Changed naming options:** Flags like
+  `DoNotPrependCallerMethodNameToScenarioName` and
+  `DoNotPrependTemplateNameToScenarioName` change scenario folder names and may
+  require new `*.verified` snapshot folder names
+
