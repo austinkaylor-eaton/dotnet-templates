@@ -38,6 +38,16 @@ For more details on Microsoft.Testing.Platform, see:
 - [Microsoft.Testing.Platform Documentation](https://aka.ms/testingplatform)
 - [dotnet test Migration Guide](https://aka.ms/dotnet-test)
 
+## Builder Pattern Permutation Coverage
+
+`tests/Item.Tests/Patterns/BuilderTests.cs` validates all 8 symbol permutations for the builder item template by varying only:
+
+- `Namespace`: default/custom
+- `ClassName`: default/custom
+- `BuilderPrefix`: `With`/`Set`
+
+Scenario names use a stable slug format (for example, `default-namespace-custom-class-set-prefix`) so snapshot paths remain predictable under `tests/Item.Tests/Patterns/Snapshots/`.
+
 ## Updating Snapshot Baselines
 
 When template output changes (or when `TemplateVerifierOptions` naming flags change),

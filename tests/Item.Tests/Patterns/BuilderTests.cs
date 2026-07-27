@@ -10,6 +10,8 @@ namespace Item.Tests.Patterns;
 public class BuilderTests
 {
     private const string TemplateShortName = "eaton-ajk-patterns-builder";
+    private const string CustomNamespace = "My.App.Models";
+    private const string CustomClassName = "Order";
     private static readonly string TemplatePath = ResolveTemplatePath();
     private static readonly string RunOutputRoot = CreateRunOutputRoot();
     private static readonly string BaselineSnapshotsRoot = ResolveBaselineSnapshotsPath();
@@ -17,20 +19,7 @@ public class BuilderTests
     [Test]
     public async Task BuilderTemplate_DefaultInstantiationTest()
     {
-        string testOutputDir = CreateAndPrepareTestOutputDirectory();
-        string snapshotsDirectory = PrepareSnapshotsDirectory();
-
-        TemplateVerifierOptions options = new(templateName: TemplateShortName)
-        {
-            TemplatePath = TemplatePath,
-            ScenarioName = "default-values",
-            DoNotAppendTemplateArgsToScenarioName = true,
-            //VerifyCommandOutput = true,
-            DisableDiffTool = true,
-            OutputDirectory = testOutputDir,
-            SnapshotsDirectory = snapshotsDirectory
-        };
-
+        TemplateVerifierOptions options = CreateScenarioOptions("default-values", nameof(BuilderTemplate_DefaultInstantiationTest));
         VerificationEngine engine = new(NullLogger.Instance);
         await engine.Execute(options).ConfigureAwait(false);
     }
@@ -38,29 +27,111 @@ public class BuilderTests
     [Test]
     public async Task BuilderTemplate_CustomArgsInstantiationTest()
     {
-        string testOutputDir = CreateAndPrepareTestOutputDirectory();
-        string snapshotsDirectory = PrepareSnapshotsDirectory();
-
-        TemplateVerifierOptions options = new(templateName: TemplateShortName)
-        {
-            TemplatePath = TemplatePath,
-            ScenarioName = "custom-namespace-class-prefix",
-            DoNotAppendTemplateArgsToScenarioName = true,
-            //VerifyCommandOutput = true,
-            OutputDirectory = testOutputDir,
-            DisableDiffTool = true,
-            SnapshotsDirectory = snapshotsDirectory,
-            TemplateSpecificArgs =
-            [
-                "--name", "Order",
-                "--Namespace", "My.App.Models",
-                "--ClassName", "Order",
-                "--BuilderPrefix", "Set"
-            ]
-        };
-
+        TemplateVerifierOptions options = CreateScenarioOptions(
+            "custom-namespace-class-prefix",
+            nameof(BuilderTemplate_CustomArgsInstantiationTest),
+            "--Namespace", CustomNamespace,
+            "--ClassName", CustomClassName,
+            "--BuilderPrefix", "Set");
         VerificationEngine engine = new(NullLogger.Instance);
         await engine.Execute(options).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task BuilderTemplate_DefaultNamespaceDefaultClassSetPrefixInstantiationTest()
+    {
+        TemplateVerifierOptions options = CreateScenarioOptions(
+            "default-namespace-default-class-set-prefix",
+            nameof(BuilderTemplate_DefaultNamespaceDefaultClassSetPrefixInstantiationTest),
+            "--BuilderPrefix", "Set");
+        VerificationEngine engine = new(NullLogger.Instance);
+        await engine.Execute(options).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task BuilderTemplate_DefaultNamespaceCustomClassWithPrefixInstantiationTest()
+    {
+        TemplateVerifierOptions options = CreateScenarioOptions(
+            "default-namespace-custom-class-with-prefix",
+            nameof(BuilderTemplate_DefaultNamespaceCustomClassWithPrefixInstantiationTest),
+            "--ClassName", CustomClassName);
+        VerificationEngine engine = new(NullLogger.Instance);
+        await engine.Execute(options).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task BuilderTemplate_DefaultNamespaceCustomClassSetPrefixInstantiationTest()
+    {
+        TemplateVerifierOptions options = CreateScenarioOptions(
+            "default-namespace-custom-class-set-prefix",
+            nameof(BuilderTemplate_DefaultNamespaceCustomClassSetPrefixInstantiationTest),
+            "--ClassName", CustomClassName,
+            "--BuilderPrefix", "Set");
+        VerificationEngine engine = new(NullLogger.Instance);
+        await engine.Execute(options).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task BuilderTemplate_CustomNamespaceDefaultClassWithPrefixInstantiationTest()
+    {
+        TemplateVerifierOptions options = CreateScenarioOptions(
+            "custom-namespace-default-class-with-prefix",
+            nameof(BuilderTemplate_CustomNamespaceDefaultClassWithPrefixInstantiationTest),
+            "--Namespace", CustomNamespace);
+        VerificationEngine engine = new(NullLogger.Instance);
+        await engine.Execute(options).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task BuilderTemplate_CustomNamespaceDefaultClassSetPrefixInstantiationTest()
+    {
+        TemplateVerifierOptions options = CreateScenarioOptions(
+            "custom-namespace-default-class-set-prefix",
+            nameof(BuilderTemplate_CustomNamespaceDefaultClassSetPrefixInstantiationTest),
+            "--Namespace", CustomNamespace,
+            "--BuilderPrefix", "Set");
+        VerificationEngine engine = new(NullLogger.Instance);
+        await engine.Execute(options).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task BuilderTemplate_CustomNamespaceCustomClassWithPrefixInstantiationTest()
+    {
+        TemplateVerifierOptions options = CreateScenarioOptions(
+            "custom-namespace-custom-class-with-prefix",
+            nameof(BuilderTemplate_CustomNamespaceCustomClassWithPrefixInstantiationTest),
+            "--Namespace", CustomNamespace,
+            "--ClassName", CustomClassName);
+        VerificationEngine engine = new(NullLogger.Instance);
+        await engine.Execute(options).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Creates template verifier options for a single named scenario.
+    /// </summary>
+    /// <param name="scenarioName">The stable scenario name used by snapshot verification.</param>
+    /// <param name="testName">The test method name used for output directory isolation.</param>
+    /// <param name="templateSpecificArgs">Template symbol arguments to pass to the template engine.</param>
+    /// <returns>Template verifier options configured for the current scenario.</returns>
+    private static TemplateVerifierOptions CreateScenarioOptions(
+        string scenarioName,
+        string testName,
+        params string[] templateSpecificArgs)
+    {
+        string testOutputDir = CreateAndPrepareTestOutputDirectory(testName);
+        string snapshotsDirectory = PrepareSnapshotsDirectory();
+
+        return new TemplateVerifierOptions(templateName: TemplateShortName)
+        {
+            TemplatePath = TemplatePath,
+            ScenarioName = scenarioName,
+            DoNotAppendTemplateArgsToScenarioName = true,
+            //VerifyCommandOutput = true,
+            DisableDiffTool = true,
+            OutputDirectory = testOutputDir,
+            SnapshotsDirectory = snapshotsDirectory,
+            TemplateSpecificArgs = templateSpecificArgs
+        };
     }
 
     /// <summary>
