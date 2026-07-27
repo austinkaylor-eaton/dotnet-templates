@@ -20,6 +20,7 @@
         <File Path="automation/scripts/run-unit-tests.ps1" />
         <File Path="automation/scripts/shared.ps1" />
         <File Path="automation/scripts/uninstall-local.ps1" />
+        <File Path="automation/scripts/update-changelog-from-pr.ps1" />
         <File Path="automation/scripts/validate-templates.ps1" />
     </Folder>
     <Folder Name="/docs/">
