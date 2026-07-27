@@ -1,5 +1,8 @@
 <Solution>
     <Folder Name="/.github/" />
+    <Folder Name="/.github/prompts/">
+        <File Path=".github/prompts/update-docs.prompt.md" />
+    </Folder>
     <Folder Name="/.github/workflows/">
         <File Path=".github/workflows/basic_ci.yml" />
     </Folder>
