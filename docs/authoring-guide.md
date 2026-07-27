@@ -496,11 +496,11 @@ Remove-Item -Force *.user
 
 ### 4. Use Short Names Consistently
 
-Follow the naming convention from [naming-conventions.md](naming-conventions.md): `eaton-<name>`
+Follow the naming convention from [naming-conventions.md](naming-conventions.md): `eaton-ajk-<name>`
 
-- `eaton-class` ✓
-- `eaton-interface` ✓
-- `eaton-webapi` ✓
+- `eaton-ajk-class` ✓
+- `eaton-ajk-interface` ✓
+- `eaton-ajk-webapi` ✓
 - `AustiKaylorClass` ✗
 - `class-template` ✗
 
@@ -739,6 +739,6 @@ For packaging, versioning, publishing, and tagging, follow
 - [Microsoft Learn: Create item templates](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-item)
 - [Microsoft Learn: Create project templates](https://learn.microsoft.com/en-us/dotnet/core/tutorials/cli-templates-create-project)
 - [dotnet/templating GitHub Wiki](https://github.com/dotnet/templating/wiki)
-- [Template.json Schema](http://json.schemastore.org/template)
-- [dotnetcli.host.json Schema](http://json.schemastore.org/dotnetcli.host)
+- [Template.json Schema](https://json.schemastore.org/template)
+- [dotnetcli.host.json Schema](https://json.schemastore.org/dotnetcli.host)
 
