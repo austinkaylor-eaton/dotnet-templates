@@ -114,6 +114,14 @@ function Write-Failure([string]$Message) {
     Write-Host "    [FAIL] $Message" -ForegroundColor Red
 }
 
+<#
+.SYNOPSIS
+    Writes a debug message.
+#>
+#function Write-Debug([string]$Message) {
+#    Write-Host "    [DEBUG] $Message" -ForegroundColor DarkGray
+#}
+
 # ---------------------------------------------------------------------------
 # Template discovery
 # ---------------------------------------------------------------------------
