@@ -15,7 +15,10 @@ $ErrorActionPreference = 'Stop'
     Returns the absolute path to the repository root.
 #>
 function Get-RepoRoot {
-    return (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
+    Write-Debug "PSScriptRoot: $PSScriptRoot"
+    $repositoryRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
+    Write-Debug "Repository Root: $repositoryRoot"
+    return $repositoryRoot
 }
 
 <#
@@ -79,7 +82,7 @@ function Write-Banner([string]$Message) {
     Writes a top-level step heading.
 #>
 function Write-Step([string]$Message) {
-    Write-Host "`n  $Message" -ForegroundColor Cyan
+    Write-Host "[STEP] $Message" -ForegroundColor Cyan
 }
 
 <#
@@ -87,7 +90,7 @@ function Write-Step([string]$Message) {
     Writes an informational message.
 #>
 function Write-Info([string]$Message) {
-    Write-Host "    $Message" -ForegroundColor Gray
+    Write-Host "[INFO] $Message" -ForegroundColor Gray
 }
 
 <#
@@ -95,7 +98,7 @@ function Write-Info([string]$Message) {
     Writes a success message.
 #>
 function Write-Success([string]$Message) {
-    Write-Host "    [OK] $Message" -ForegroundColor Green
+    Write-Host "[OK] $Message" -ForegroundColor Green
 }
 
 <#
@@ -103,7 +106,7 @@ function Write-Success([string]$Message) {
     Writes a warning message without stopping execution.
 #>
 function Write-Warn([string]$Message) {
-    Write-Host "    [WARN] $Message" -ForegroundColor Yellow
+    Write-Host "[WARN] $Message" -ForegroundColor Yellow
 }
 
 <#
@@ -111,7 +114,7 @@ function Write-Warn([string]$Message) {
     Writes an error message without stopping execution.
 #>
 function Write-Failure([string]$Message) {
-    Write-Host "    [FAIL] $Message" -ForegroundColor Red
+    Write-Host "[FAIL] $Message" -ForegroundColor Red
 }
 
 <#
@@ -217,10 +220,23 @@ function Get-AllTemplates {
 #>
 function Get-PackageVersion {
     $versionFile = Join-Path (Get-RepoRoot) 'templates\Eaton.AustinKaylor.Templates.csproj'
-    if (Test-Path $versionFile) {
-        $data = Get-Content $versionFile -Raw | ConvertFrom-Xml
-        if ($data.Project.PropertyGroup.PackageVersion) { return $data.Project.PropertyGroup.PackageVersion }
+    if (-not (Test-Path $versionFile)) {
+        return '0.1.0'
     }
+
+    [xml]$projectXml = Get-Content -Path $versionFile -Raw
+
+    # Handle multiple PropertyGroup nodes; return first non-empty PackageVersion
+    foreach ($group in @($projectXml.Project.PropertyGroup)) {
+        if ($group.PackageVersion -and -not [string]::IsNullOrWhiteSpace([string]$group.PackageVersion)) {
+            return [string]$group.PackageVersion
+        }
+        # Fallback incase PackageVersion is not used and Version is present instead
+        if ($group.Version -and -not [string]::IsNullOrWhiteSpace([string]$group.Version)) {
+            return [string]$group.Version
+        }
+    }
+
     return '0.1.0'
 }
 
