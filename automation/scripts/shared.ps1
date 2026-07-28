@@ -67,10 +67,19 @@ function Get-LocalTestingPath {
 
 <#
 .SYNOPSIS
+    Returns a single line of consecutive dashes.
+    Defaults to 60 dashes.
+#>
+function Get-Divider-Line([int]$NumberOfDashes = 60) {
+    return '-' * $NumberOfDashes
+}
+
+<#
+.SYNOPSIS
     Writes a section banner to the console.
 #>
 function Write-Banner([string]$Message) {
-    $line = '-' * 60
+    $line = Get-Divider-Line(60)
     Write-Host ''
     Write-Host $line -ForegroundColor DarkGray
     Write-Host "  $Message" -ForegroundColor White
@@ -220,7 +229,7 @@ function Get-AllTemplates {
 #>
 function Get-PackageVersion {
     Write-Debug "Get-PackageVersion"
-    Write-Debug '-' * 60
+    Write-Debug | Get-Divider-Line(60)
     $versionFile = Join-Path (Get-RepoRoot) 'templates\Eaton.AustinKaylor.Templates.csproj'
     Write-Debug $versionFile
     if (-not (Test-Path $versionFile)) {
