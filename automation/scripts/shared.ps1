@@ -219,24 +219,32 @@ function Get-AllTemplates {
     $version = Get-PackageVersion
 #>
 function Get-PackageVersion {
+    Write-Debug "Get-PackageVersion"
+    Write-Debug '-' * 60
     $versionFile = Join-Path (Get-RepoRoot) 'templates\Eaton.AustinKaylor.Templates.csproj'
+    Write-Debug $versionFile
     if (-not (Test-Path $versionFile)) {
+        Write-Debug "Template package project not found. Using default version 0.1.0"
         return '0.1.0'
     }
 
     [xml]$projectXml = Get-Content -Path $versionFile -Raw
+    Write-Debug $projectXml
 
     # Handle multiple PropertyGroup nodes; return first non-empty PackageVersion
     foreach ($group in @($projectXml.Project.PropertyGroup)) {
         if ($group.PackageVersion -and -not [string]::IsNullOrWhiteSpace([string]$group.PackageVersion)) {
+            Write-Debug "Found PackageVersion: $($group.PackageVersion)"
             return [string]$group.PackageVersion
         }
         # Fallback incase PackageVersion is not used and Version is present instead
         if ($group.Version -and -not [string]::IsNullOrWhiteSpace([string]$group.Version)) {
+            Write-Debug "Found Version: $($group.Version)"
             return [string]$group.Version
         }
     }
 
+    Write-Debug "Template package project not found. Using default version 0.1.0"
     return '0.1.0'
 }
 
