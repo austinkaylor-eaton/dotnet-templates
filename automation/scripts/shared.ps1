@@ -229,7 +229,8 @@ function Get-AllTemplates {
 #>
 function Get-PackageVersion {
     Write-Debug "Get-PackageVersion"
-    Write-Debug | Get-Divider-Line(60)
+    $line = Get-Divider-Line(60)
+    Write-Debug $line
     $versionFile = Join-Path (Get-RepoRoot) 'templates\Eaton.AustinKaylor.Templates.csproj'
     Write-Debug $versionFile
     if (-not (Test-Path $versionFile)) {
