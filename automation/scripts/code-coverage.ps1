@@ -49,7 +49,7 @@ Write-Step "Getting unit test project path"
 $itemUnitTestProject = Join-Path $repoRoot 'tests\Item.Tests\Item.Tests.csproj'
 Write-Debug "Item Unit Test Project Path: $itemUnitTestProject"
 
-Write-Step "Generating code coverage report for unit tests"
+Write-Step "Generating Code Coverage Report for $itemUnitTestProject"
 $xmlCodeCoveragePath = Join-Path $coverageOutputDir "item.tests.coverage.cobertura.xml"
 Write-Info "Building $itemUnitTestProject..."
 dotnet build $itemUnitTestProject -c Release
