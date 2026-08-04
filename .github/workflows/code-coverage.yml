@@ -30,9 +30,10 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build
+      - name: Build Solution
         run: dotnet build --configuration Release --no-restore
   test:
+    needs: build
     runs-on: ubuntu-latest
     permissions: # The `code-quality: write` permission is required to upload coverage data. No other elevated permissions are needed.
       contents: read
