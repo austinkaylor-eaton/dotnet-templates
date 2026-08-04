@@ -1,0 +1,46 @@
+﻿# This workflow runs your test suite, generates a Cobertura XML coverage report, and uploads it to GitHub. Once this workflow is committed, coverage results appear automatically on every pull request.
+name: Code Coverage
+
+# Run on pushes to the default branch (to establish the baseline) and on pull requests (to compare against it). Code Quality compares PR branch coverage to the default branch, so both triggers are needed.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# The `code-quality: write` permission is required to upload coverage data. No other elevated permissions are needed.
+permissions:
+  contents: read
+  code-quality: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the PR head commit (not the merge commit) so coverage line numbers map correctly to the diff.
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      # Setup .NET 10
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run tests with coverage
+        run: dotnet test --configuration Release --no-build --results-directory ./TestResults -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura
+
+      - name: Upload coverage to GitHub
+        uses: actions/upload-code-coverage@v1
+        with:
+          file: './TestResults/coverage.xml'
+          language: 'csharp'
+          label: 'code-coverage/dotnet-test'
