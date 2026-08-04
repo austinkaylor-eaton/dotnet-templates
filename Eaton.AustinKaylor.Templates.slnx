@@ -6,7 +6,7 @@
         <File Path=".github/prompts/update-docs.prompt.md" />
     </Folder>
     <Folder Name="/.github/workflows/">
-        <File Path=".github/workflows/pull_request.yml" />
+        <File Path=".github/workflows/code-coverage.yml" />
     </Folder>
     <Folder Name="/artifacts/" />
     <Folder Name="/artifacts/logs/" />
