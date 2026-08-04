@@ -1,6 +1,7 @@
 # This workflow runs your test suite, generates a Cobertura XML coverage report, and uploads it to GitHub. Once this workflow is committed, coverage results appear automatically on every pull request.name: Code Coverage
 # See -> https://docs.github.com/en/code-security/how-tos/maintain-quality-code/set-up-code-coverage
 # Run on pushes to the default branch (to establish the baseline) and on pull requests (to compare against it). Code Quality compares PR branch coverage to the default branch, so both triggers are needed.
+name: Code Coverage
 on:
   push:
     branches: [main]
