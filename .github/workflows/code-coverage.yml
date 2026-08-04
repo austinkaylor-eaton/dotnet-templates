@@ -8,14 +8,12 @@ on:
   pull_request:
     branches: [main]
 
-# The `code-quality: write` permission is required to upload coverage data. No other elevated permissions are needed.
-permissions:
-  contents: read
-  code-quality: write
-
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       # Check out the PR head commit (not the merge commit) so coverage line numbers map correctly to the diff.
       - name: Checkout code
@@ -34,7 +32,12 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
-
+  test:
+    runs-on: ubuntu-latest
+    permissions: # The `code-quality: write` permission is required to upload coverage data. No other elevated permissions are needed.
+      contents: read
+      code-quality: write
+    steps:
       - name: Run tests with coverage
         run: dotnet test --configuration Release --no-build --results-directory ./TestResults -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura
 
