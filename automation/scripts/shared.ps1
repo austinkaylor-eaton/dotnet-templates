@@ -201,17 +201,17 @@ function Get-AllTemplates {
 
 <#
 .SYNOPSIS
-    Reads the package version from automation/version.json.
+    Reads the package version from Eaton.AustinKaylor.Templates.csproj.
     Returns '0.1.0' when the file does not exist.
 
 .EXAMPLE
     $version = Get-PackageVersion
 #>
 function Get-PackageVersion {
-    $versionFile = Join-Path (Get-RepoRoot) 'automation\version.json'
+    $versionFile = Join-Path (Get-TemplatesRoot) 'Eaton.AustinKaylor.Templates.csproj'
     if (Test-Path $versionFile) {
-        $data = Get-Content $versionFile -Raw | ConvertFrom-Json
-        if ($data.version) { return $data.version }
+        $data = Get-Content $versionFile -Raw | ConvertFrom-Xml
+        if ($data.Project.PropertyGroup.Version) { return $data.Project.PropertyGroup.Version }
     }
     return '0.1.0'
 }
