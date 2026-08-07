@@ -68,10 +68,10 @@ function Get-LocalTestingPath {
 #>
 function Write-Banner([string]$Message) {
     $line = '-' * 60
-    Write-Host ''
-    Write-Host $line -ForegroundColor DarkGray
-    Write-Host "  $Message" -ForegroundColor White
-    Write-Host $line -ForegroundColor DarkGray
+    Write-Output ''
+    Write-Output $line -ForegroundColor DarkGray
+    Write-Output "  $Message" -ForegroundColor White
+    Write-Output $line -ForegroundColor DarkGray
 }
 
 <#
@@ -79,7 +79,7 @@ function Write-Banner([string]$Message) {
     Writes a top-level step heading.
 #>
 function Write-Step([string]$Message) {
-    Write-Host "`n  $Message" -ForegroundColor Cyan
+    Write-Output "`n  $Message" -ForegroundColor Cyan
 }
 
 <#
@@ -87,7 +87,7 @@ function Write-Step([string]$Message) {
     Writes an informational message.
 #>
 function Write-Info([string]$Message) {
-    Write-Host "    $Message" -ForegroundColor Gray
+    Write-Output "    $Message" -ForegroundColor Gray
 }
 
 <#
@@ -95,7 +95,7 @@ function Write-Info([string]$Message) {
     Writes a success message.
 #>
 function Write-Success([string]$Message) {
-    Write-Host "    [OK] $Message" -ForegroundColor Green
+    Write-Output "    [OK] $Message" -ForegroundColor Green
 }
 
 <#
@@ -103,7 +103,7 @@ function Write-Success([string]$Message) {
     Writes a warning message without stopping execution.
 #>
 function Write-Warn([string]$Message) {
-    Write-Host "    [WARN] $Message" -ForegroundColor Yellow
+    Write-Output "    [WARN] $Message" -ForegroundColor Yellow
 }
 
 <#
@@ -111,7 +111,7 @@ function Write-Warn([string]$Message) {
     Writes an error message without stopping execution.
 #>
 function Write-Failure([string]$Message) {
-    Write-Host "    [FAIL] $Message" -ForegroundColor Red
+    Write-Output "    [FAIL] $Message" -ForegroundColor Red
 }
 
 # ---------------------------------------------------------------------------
