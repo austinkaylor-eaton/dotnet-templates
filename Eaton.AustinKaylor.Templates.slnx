@@ -6,10 +6,6 @@
     <Folder Name="/.github/workflows/">
         <File Path=".github/workflows/basic_ci.yml" />
     </Folder>
-    <Folder Name="/artifacts/" />
-    <Folder Name="/artifacts/logs/" />
-    <Folder Name="/artifacts/nuget_packages/" />
-    <Folder Name="/artifacts/test-results/" />
     <Folder Name="/automation/" />
     <Folder Name="/automation/scripts/">
         <File Path="automation/scripts/add-gitkeep-to-every-repo-folder.ps1" />
