@@ -8,7 +8,6 @@ The repository follows a **template-centric, lifecycle-driven** model:
 
 - **Templates** are self-contained template units stored in `templates/`
 - **Automation** (`automation/`) handles validation, packaging, and distribution
-- **Artifacts** (`artifacts/`) stores compiled packages and logs
 - **Documentation** (`docs/`) explains conventions, authoring patterns, and the catalog
 - **Local testing** (`local_testing/`) provides an isolated sandbox for template development
 - **Tests** (`tests/`) provide unit and integration tests of templates, with a separate test project for each type (item, project, solution)
