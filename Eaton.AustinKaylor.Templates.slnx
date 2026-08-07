@@ -27,7 +27,6 @@
     <Folder Name="/docs/">
         <File Path="docs/architecture.md" />
         <File Path="docs/authoring-guide.md" />
-        <File Path="docs/changelog-automation.md" />
         <File Path="docs/naming-conventions.md" />
         <File Path="docs/release-process.md" />
         <File Path="docs/template-catalog.md" />
