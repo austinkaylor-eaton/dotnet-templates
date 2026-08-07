@@ -74,38 +74,3 @@ jobs:
           if-no-files-found: warn
           path: ${{ runner.temp }}/tunit-aggregate/**/merged-report.html
 
-  update-changelog:
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && github.base_ref == 'main'
-
-    permissions:
-      contents: write
-      pull-requests: read
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set git config
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Extract and update changelog
-        env:
-          PR_BODY: ${{ github.event.pull_request.body }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          pwsh -File "${{ github.workspace }}/automation/scripts/update-changelog-from-pr.ps1" -PrBody $env:PR_BODY -PrNumber ${{ github.event.pull_request.number }}
-
-      - name: Commit changelog updates
-        run: |
-          if [[ -n "$(git status --porcelain CHANGELOG.md)" ]]; then
-            git add CHANGELOG.md
-            git commit -m "docs: update CHANGELOG.md from PR #${{ github.event.pull_request.number }}"
-            git push
-          else
-            echo "No changelog changes to commit"
-          fi
-
