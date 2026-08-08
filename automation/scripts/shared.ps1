@@ -210,8 +210,13 @@ function Get-AllTemplates {
 function Get-PackageVersion {
     $versionFile = Join-Path (Get-TemplatesRoot) 'Eaton.AustinKaylor.Templates.csproj'
     if (Test-Path $versionFile) {
-        $data = Get-Content $versionFile -Raw | ConvertFrom-Xml
-        if ($data.Project.PropertyGroup.Version) { return $data.Project.PropertyGroup.Version }
+        [xml]$data = Get-Content $versionFile
+
+        # PropertyGroup can appear multiple times and not all groups define all version nodes.
+        $packageVersionNode = $data.SelectSingleNode('/Project/PropertyGroup/PackageVersion[normalize-space(text())]')
+        if ($packageVersionNode) {
+            return $packageVersionNode.InnerText.Trim()
+        }
     }
     return '0.1.0'
 }
